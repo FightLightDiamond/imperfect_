@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
+import {BrowserRouter} from 'react-router-dom'
 import './App.css';
+import {Provider} from 'react-redux';
+import {configureStore} from '../src/stores/redux/store';
+import {Container} from "react-bootstrap";
+import NavbarTop from "./components/layout/NavbarTop";
+import MainRoutePlace from "./routers/MainRoutePlace";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+    render() {
+        return (
+            <Provider store={configureStore()}>
+                <BrowserRouter>
+                    <NavbarTop/>
+
+                    <Container style={{padding: "20px 0"}}>
+                        <MainRoutePlace/>
+                    </Container>
+                </BrowserRouter>
+            </Provider>
+        );
+    }
 }
 
 export default App;
