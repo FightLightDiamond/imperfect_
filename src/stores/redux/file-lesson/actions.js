@@ -1,21 +1,31 @@
-import {
-  LOGIN_USER,
-  LOGIN_USER_SUCCESS,
+export const UPDATE_FILE_LESSON = 'UPDATE_FILE_LESSON'
+export const GET_FILE_LESSON = 'GET_FILE_LESSON'
+export const UPDATE_FILE_LESSON_SUCCESS = 'UPDATE_FILE_LESSON'
+export const DELETE_FILE_LESSON = 'DELETE_FILE_LESSON'
+export const DELETE_FILE_LESSON_SUCCESS = 'DELETE_FILE_LESSON'
 
-  LOGIN_USER_ERROR,
-} from '../actions';
-
-export const loginUser = (user, history) => ({
-  type: LOGIN_USER,
-  payload: { user, history }
+export const getFileLessonAction = (files) => ({
+  type: GET_FILE_LESSON,
+  payload: {files}
 });
 
-export const loginUserSuccess = (user) => ({
-  type: LOGIN_USER_SUCCESS,
-  payload: user
+export const updateFileLessonAction = (id, file) => ({
+  type: UPDATE_FILE_LESSON,
+  payload: { id, file }
 });
 
-export const loginUserError = (message) => ({
-  type: LOGIN_USER_ERROR,
-  payload: { message }
+export const updateFileLessonSuccessAction = (fileURL) => ({
+  type: UPDATE_FILE_LESSON_SUCCESS,
+  payload: {fileURL}
+});
+
+export const deleteFileLessonAction = (index) => ({
+  type: DELETE_FILE_LESSON,
+  payload: {index}
+});
+
+
+export const deleteFileLessonSuccessAction = (index) => ({
+  type: DELETE_FILE_LESSON_SUCCESS,
+  payload: {index}
 });

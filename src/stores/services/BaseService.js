@@ -2,8 +2,10 @@ import axios from 'axios';
 import Api from '../../config/Api';
 
 export default class BaseService {
-    constructor(auth = 'user', domain = null) {
-        this.setAuth(auth);
+    constructor(auth, domain = null) {
+        if (auth) {
+            this.setAuth(auth);
+        }
 
         if (domain) {
             this.setDomain(domain);
@@ -25,16 +27,29 @@ export default class BaseService {
     };
 
     setAuth = (auth) => {
-        // const loginInfo = JSON.parse(localStorage.getItem(auth))
-        // console.log(auth, loginInfo);
-        //
-        // axios.interceptors.request.use(function (config) {
-        //   if (loginInfo) {
-        //     config.headers.Authorization = `Bearer ${loginInfo.access_token}`
-        //   }
-        //   return config
-        // })
+        if (this.isAuthenticated(auth)) {
+            const token = this.getToken(auth)
+
+            axios.interceptors.request.use(function (config) {
+                config.headers.Authorization = `Bearer ${token}`
+                return config
+            })
+        }
     };
+
+    isAuthenticated = (auth) => {
+        try {
+            const loginInfo = JSON.parse(localStorage.getItem(auth))
+            return !!loginInfo.access_token
+        } catch (e) {
+            return false
+        }
+    }
+
+    getToken = (auth) => {
+        const loginInfo = JSON.parse(localStorage.getItem(auth))
+        return loginInfo.access_token
+    }
 
     get = async (uri, params = {}) => {
         return await axios.get(this.getUrl(uri), {params: params});

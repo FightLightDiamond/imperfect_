@@ -1,56 +1,45 @@
 import {
-    LOGIN_USER,
-    LOGIN_USER_SUCCESS,
-    LOGIN_USER_ERROR,
-    REGISTER_USER,
-    REGISTER_USER_SUCCESS,
-    REGISTER_USER_ERROR,
-    LOGOUT_USER,
-    FORGOT_PASSWORD,
-    FORGOT_PASSWORD_SUCCESS,
-    FORGOT_PASSWORD_ERROR,
-    RESET_PASSWORD,
-    RESET_PASSWORD_SUCCESS,
-    RESET_PASSWORD_ERROR
-} from '../actions';
+    // CREATE_LESSON,
+    CREATE_LESSON_SUCCESS,
+    GET_LESSON,
+    UPDATE_LESSON_ERROR,
+    UPDATE_LESSON_SUCCESS,
+    DELETE_LESSON_SUCCESS, DELETE_LESSON_ERROR, CREATE_LESSON_ERROR
+} from './actions';
 
 const INIT_STATE = {
-    user: localStorage.getItem('user_id'),
-    forgotUserMail: '',
-    newPassword: '',
-    resetPasswordCode: '',
-    loading: false,
-    error: ''
+    lesson: {
+        id: 0
+    }
 };
 
 export default (state = INIT_STATE, action) => {
     switch (action.type) {
-        case LOGIN_USER:
-            return { ...state, loading: true, error: '' };
-        case LOGIN_USER_SUCCESS:
-            return { ...state, loading: false, user: action.payload.uid, error: '' };
-        case LOGIN_USER_ERROR:
-            return { ...state, loading: false, user: '', error: action.payload.message };
-        case FORGOT_PASSWORD:
-            return { ...state, loading: true, error: '' };
-        case FORGOT_PASSWORD_SUCCESS:
-            return { ...state, loading: false, forgotUserMail: action.payload, error: '' };
-        case FORGOT_PASSWORD_ERROR:
-            return { ...state, loading: false, forgotUserMail: '', error: action.payload.message };
-        case RESET_PASSWORD:
-            return { ...state, loading: true, error: '' };
-        case RESET_PASSWORD_SUCCESS:
-            return { ...state, loading: false, newPassword: action.payload, resetPasswordCode: '', error: '' };
-        case RESET_PASSWORD_ERROR:
-            return { ...state, loading: false, newPassword: '', resetPasswordCode: '', error: action.payload.message };
-        case REGISTER_USER:
-            return { ...state, loading: true, error: '' };
-        case REGISTER_USER_SUCCESS:
-            return { ...state, loading: false, user: action.payload.uid, error: '' };
-        case REGISTER_USER_ERROR:
-            return { ...state, loading: false, user: '', error: action.payload.message };
-        case LOGOUT_USER:
-            return { ...state, user: null, error: '' };
-        default: return { ...state };
+        // case CREATE_LESSON:
+        //     alert('CREATE_LESSON')
+        //     return {...state, lesson: action.payload.lesson}
+        case CREATE_LESSON_ERROR:
+            alert(CREATE_LESSON_ERROR)
+            return state
+        case CREATE_LESSON_SUCCESS:
+            alert(CREATE_LESSON_SUCCESS)
+            console.log('action.payload CREATE_LESSON_SUCCESS', action.payload)
+            return {...state, lesson: action.payload.lesson}
+        case GET_LESSON:
+            return {...state, lesson: action.payload.lesson}
+        case UPDATE_LESSON_ERROR:
+            alert('UPDATE_LESSON_ERROR')
+            return state
+        case UPDATE_LESSON_SUCCESS:
+            alert('UPDATE_LESSON_SUCCESS')
+            return {...state, lesson: [...state.lesson, action.payload.fileURL]}
+        case DELETE_LESSON_ERROR:
+            alert('DELETE_LESSON_ERROR')
+            return state
+        case DELETE_LESSON_SUCCESS:
+            alert('DELETE_LESSON_SUCCESS')
+            return {...state, lesson: [...state.lesson, action.payload]}
+        default:
+            return state
     }
 }

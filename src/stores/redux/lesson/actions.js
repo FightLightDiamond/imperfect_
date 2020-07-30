@@ -1,80 +1,60 @@
-import {
-  LOGIN_USER,
-  LOGIN_USER_SUCCESS,
-  LOGOUT_USER,
-  REGISTER_USER,
-  REGISTER_USER_SUCCESS,
-  LOGIN_USER_ERROR,
-  REGISTER_USER_ERROR,
-  FORGOT_PASSWORD,
-  FORGOT_PASSWORD_SUCCESS,
-  FORGOT_PASSWORD_ERROR,
-  RESET_PASSWORD,
-  RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_ERROR
-} from '../actions';
+export const CREATE_LESSON = 'CREATE_LESSON'
+export const CREATE_LESSON_ERROR = 'CREATE_LESSON_ERROR'
+export const CREATE_LESSON_SUCCESS = 'CREATE_LESSON_SUCCESS'
+export const UPDATE_LESSON = 'UPDATE_LESSON'
+export const GET_LESSON = 'GET_LESSON'
+export const UPDATE_LESSON_ERROR = 'UPDATE_LESSON_ERROR'
+export const UPDATE_LESSON_SUCCESS = 'UPDATE_LESSON_SUCCESS'
+export const DELETE_LESSON = 'DELETE_LESSON'
+export const DELETE_LESSON_ERROR = 'DELETE_LESSON_ERROR'
+export const DELETE_LESSON_SUCCESS = 'DELETE_LESSON_SUCCESS'
 
-export const loginUser = (user, history) => ({
-  type: LOGIN_USER,
-  payload: { user, history }
+export const createLessonAction = (lesson) => ({
+    type: CREATE_LESSON,
+    payload: lesson
 });
 
-export const loginUserSuccess = (user) => ({
-  type: LOGIN_USER_SUCCESS,
-  payload: user
+export const createLessonErrorAction = (lesson) => ({
+    type: CREATE_LESSON_ERROR,
+    payload: lesson
 });
 
-export const loginUserError = (message) => ({
-  type: LOGIN_USER_ERROR,
-  payload: { message }
+export const createLessonSuccessAction = (lesson) => ({
+    type: CREATE_LESSON_SUCCESS,
+    payload: {lesson}
 });
 
-export const forgotPassword = (forgotUserMail, history) => ({
-  type: FORGOT_PASSWORD,
-  payload: { forgotUserMail, history }
+export const getLessonAction = (lesson) => ({
+    type: GET_LESSON,
+    payload: lesson
 });
 
-export const forgotPasswordSuccess = (forgotUserMail) => ({
-  type: FORGOT_PASSWORD_SUCCESS,
-  payload: forgotUserMail
+export const updateLessonAction = (id, data) => ({
+    type: UPDATE_LESSON,
+    payload: {id, data}
 });
 
-export const forgotPasswordError = (message) => ({
-  type: FORGOT_PASSWORD_ERROR,
-  payload: { message }
+export const updateLessonSuccessAction = (lessonURL) => ({
+    type: UPDATE_LESSON_SUCCESS,
+    payload: {lessonURL}
 });
 
-export const resetPassword = ({resetPasswordCode,newPassword,history}) => ({
-  type: RESET_PASSWORD,
-  payload: { resetPasswordCode,newPassword,history }
+export const updateLessonErrorAction = (e) => ({
+    type: UPDATE_LESSON_ERROR,
+    payload: {e}
 });
 
-export const resetPasswordSuccess = (newPassword) => ({
-  type: RESET_PASSWORD_SUCCESS,
-  payload: newPassword
+export const deleteLessonAction = (id) => ({
+    type: DELETE_LESSON,
+    payload: {id}
 });
 
-export const resetPasswordError = (message) => ({
-  type: RESET_PASSWORD_ERROR,
-  payload: { message }
+export const deleteLessonErrorAction = (id) => ({
+    type: DELETE_LESSON_ERROR,
+    payload: {id}
 });
 
-export const registerUser = (user, history) => ({
-  type: REGISTER_USER,
-  payload: { user, history }
-})
-
-export const registerUserSuccess = (user) => ({
-  type: REGISTER_USER_SUCCESS,
-  payload: user
-})
-
-export const registerUserError = (message) => ({
-  type: REGISTER_USER_ERROR,
-  payload: { message }
-})
-
-export const logoutUser = (history) => ({
-  type: LOGOUT_USER,
-  payload: { history }
+export const deleteLessonSuccessAction = (id) => ({
+    type: DELETE_LESSON_SUCCESS,
+    payload: {id}
 });

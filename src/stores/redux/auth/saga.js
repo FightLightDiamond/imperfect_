@@ -1,5 +1,5 @@
-import {all, call, fork, put, takeEvery} from 'redux-saga/effects';
-import FactoryService from '../../services/FactoryService';
+import {all, call, fork, put, takeEvery, takeLatest} from 'redux-saga/effects';
+import FactoryService from '../../services/FactoryService'
 import Auth from '../../../config/Auth'
 
 import {
@@ -21,8 +21,6 @@ import {
     resetPasswordError
 } from './actions';
 
-const request = FactoryService.request('AuthService');
-
 export function* watchLoginUser() {
     yield takeEvery(LOGIN_USER, loginWithEmailPassword);
 }
@@ -32,7 +30,7 @@ const loginWithEmailPasswordAsync = async (email, password) => {
     auth.username = email
     auth.password = password
 
-    await request.login(auth)
+    return await FactoryService.request('AuthService').login(auth)
         .then(authUser => authUser)
         .catch(error => error);
 }
@@ -40,12 +38,15 @@ const loginWithEmailPasswordAsync = async (email, password) => {
 function* loginWithEmailPassword({payload}) {
     const {email, password} = payload.user;
     const {history} = payload;
+
     try {
         const loginUser = yield call(loginWithEmailPasswordAsync, email, password);
+        console.log('loginUser', loginUser.data);
 
-        if (!loginUser.message) {
-            localStorage.setItem('user_id', loginUser.user.id);
-            yield put(loginUserSuccess(loginUser.user));
+        if (loginUser.data) {
+            localStorage.setItem('user_id', loginUser.data.id);
+            localStorage.setItem('user', JSON.stringify(loginUser.data));
+            yield put(loginUserSuccess(loginUser.data));
             history.push('/');
         } else {
             yield put(loginUserError(loginUser.message));
@@ -57,28 +58,38 @@ function* loginWithEmailPassword({payload}) {
 }
 
 export function* watchRegisterUser() {
-    yield takeEvery(REGISTER_USER, registerWithEmailPassword);
+    yield takeLatest(REGISTER_USER, registerWithEmailPassword);
 }
 
 const registerWithEmailPasswordAsync = async (email, password, password_confirmation) =>
-    await request.register({email, password, password_confirmation})
+    await FactoryService.request('AuthService').register({email, password, password_confirmation})
         .then(authUser => authUser)
         .catch(error => error);
 
 function* registerWithEmailPassword({payload}) {
     const {email, password, password_confirmation} = payload.user;
     const {history} = payload
+    console.log('history', history)
+
     try {
         const registerUser = yield call(registerWithEmailPasswordAsync, email, password, password_confirmation);
-        if (!registerUser.message) {
-            localStorage.setItem('user_id', registerUser.user.id);
+
+        console.log(registerUser)
+        console.log('registerUser id', registerUser.data.id)
+
+        if (registerUser.data) {
+            localStorage.setItem('user_id', registerUser.data.id);
+            localStorage.setItem('user', JSON.stringify(registerUser.data));
+            alert('Success')
             yield put(registerUserSuccess(registerUser));
+
             history.push('/')
         } else {
+            console.log(registerUser.message)
             yield put(registerUserError(registerUser.message));
-
         }
     } catch (error) {
+        console.log(error)
         yield put(registerUserError(error));
     }
 }
@@ -88,7 +99,7 @@ export function* watchLogoutUser() {
 }
 
 const logoutAsync = async (history) => {
-    await request.logout().then(authUser => authUser).catch(error => error);
+    await FactoryService.request('AuthService').logout().then(authUser => authUser).catch(error => error);
     history.push('/')
 }
 
@@ -106,7 +117,7 @@ export function* watchForgotPassword() {
 }
 
 const forgotPasswordAsync = async (email) => {
-    return await request.forgot(email)
+    return await FactoryService.request('AuthService').forgot(email)
         .then(user => user)
         .catch(error => error);
 }
@@ -131,7 +142,7 @@ export function* watchResetPassword() {
 }
 
 const resetPasswordAsync = async (resetPasswordCode, newPassword) => {
-    return await request.reset(resetPasswordCode, newPassword)
+    return await FactoryService.request('AuthService').reset(resetPasswordCode, newPassword)
         .then(user => user)
         .catch(error => error);
 }
@@ -160,3 +171,26 @@ export default function* rootSaga() {
         fork(watchResetPassword),
     ]);
 }
+//
+// function* a() {
+//     yield 'redux-saga'
+//     yield 'redux-xxx'
+//     return "xxx"
+// }
+//
+// function* b() {
+//     yield 'a'
+//     yield 'b'
+//     yield * a()
+//     yield 'c'
+//     return "7777"
+// }
+//
+// const x = b();
+//
+// console.log(x.next())
+// console.log(x.next())
+// console.log(x.next())
+// console.log(x.next())
+// console.log(x.next())
+// console.log(x.next())

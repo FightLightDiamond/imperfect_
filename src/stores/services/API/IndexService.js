@@ -4,6 +4,7 @@ import ChatService from './ChatService'
 import CourseService from './CourseService'
 import ContactService from './ContactService'
 import CrazyService from './CrazyService'
+import FileLessonService from './FileLessonService'
 import HistoryService from './HistoryService'
 import LessonService from './LessonService'
 import RemindService from './RemindService'
@@ -18,6 +19,7 @@ export default {
   CourseService,
   ContactService,
   CrazyService,
+  FileLessonService,
   HistoryService,
   LessonService,
   RemindService,

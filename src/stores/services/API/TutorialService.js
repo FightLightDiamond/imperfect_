@@ -1,6 +1,6 @@
 import BaseService from '../BaseService';
 
-export default class UserService extends BaseService {
+export default class TutorialService extends BaseService {
     index = async (params = {}) => {
         return await this.get(`/api/v1/tutorials`, params);
     };

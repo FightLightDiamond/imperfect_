@@ -1,6 +1,6 @@
 import BaseService from '../BaseService';
 
-export default class CourseService extends BaseService {
+export default class RemindService extends BaseService {
     create = async (params = {}) => {
         return await this.post(`/api/reminds`, params);
     };

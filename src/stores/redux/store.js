@@ -16,13 +16,13 @@ export function configureStore(initialState) {
     );
 
     sagaMiddleware.run(sagas);
-
-    if (module.hot) {
-        module.hot.accept('./reducers', () => {
-            const nextRootReducer = require('./reducers');
-            store.replaceReducer(nextRootReducer);
-        });
-    }
+    //
+    // if (module.hot) {
+    //     module.hot.accept('./reducers', () => {
+    //         const nextRootReducer = require('./reducers');
+    //         store.replaceReducer(nextRootReducer);
+    //     });
+    // }
 
     return store;
 }
