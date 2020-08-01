@@ -1,8 +1,8 @@
 import React from "react";
 import {Nav, Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import GuestLink from "../../routers/GuestLink";
-import PrivateLink from "../../routers/PrivateLink";
+import GuestLink from "../../../routers/GuestLink";
+import PrivateLink from "../../../routers/PrivateLink";
 import axios from 'axios'
 
 export default class NavbarTop extends React.Component {
@@ -35,15 +35,16 @@ export default class NavbarTop extends React.Component {
                 <Nav className="mr-auto">
                     <Link to="/" className={'nav-link'}>Home</Link>
 
-                    <PrivateLink to="/lesson" className={'nav-link'} name={'Lesson'} isAuthenticated={isAuthenticated}/>
+                    <PrivateLink to="/lessons" className={'nav-link'} name={'Lesson'} isAuthenticated={isAuthenticated}/>
+                    <Link to="/lesson/1" className={'nav-link'} >Lesson detail</Link>
                     <PrivateLink to="/quiz" className={'nav-link'} name={'Quiz'} isAuthenticated={isAuthenticated}/>
                     <PrivateLink to="/test" className={'nav-link'} name={'Test'} isAuthenticated={isAuthenticated}/>
 
                     {/*<Link to="/lesson" className={'nav-link'}>Lesson</Link>*/}
                     {/*<Link to="/quiz" className={'nav-link'}>Quiz</Link>*/}
                     {/*<Link to="/test" className={'nav-link'}>Test</Link>*/}
-                    <Nav.Link href="/about">About</Nav.Link>
-                    <Nav.Link href="/topics">Topics</Nav.Link>
+                    <Link to="/about" className={'nav-link'}>About</Link>
+                    <Link to="/topics" className={'nav-link'}>Topics</Link>
                 </Nav>
                 <Nav>
                     <GuestLink to="/login" className={'nav-link'} name={'Login'} isAuthenticated={isAuthenticated}/>

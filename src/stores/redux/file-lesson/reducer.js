@@ -1,10 +1,13 @@
 import {
     GET_FILE_LESSON,
-    UPDATE_FILE_LESSON_SUCCESS, DELETE_FILE_LESSON_SUCCESS
+    UPDATE_FILE_LESSON_SUCCESS,
+    DELETE_FILE_LESSON_SUCCESS
 } from './actions';
 
 const INIT_STATE = {
-    files: []
+    files: [],
+    loading: false,
+    error: '',
 };
 
 export default (state = INIT_STATE, action) => {
@@ -12,10 +15,10 @@ export default (state = INIT_STATE, action) => {
         case GET_FILE_LESSON:
             return { ...state, files: action.payload.files}
         case UPDATE_FILE_LESSON_SUCCESS:
-            alert('Success')
+            alert(UPDATE_FILE_LESSON_SUCCESS)
             return { ...state, files: [...state.files, action.payload.fileURL] };
         case DELETE_FILE_LESSON_SUCCESS:
-            alert('Success')
+            alert(DELETE_FILE_LESSON_SUCCESS)
             return { ...state, files: [...state.files, action.payload] };
         default: return { ...state, files: [] };
     }

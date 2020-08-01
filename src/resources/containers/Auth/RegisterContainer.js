@@ -1,7 +1,7 @@
 import React from "react";
 import {Form, Button} from "react-bootstrap";
 import {connect} from "react-redux";
-import {registerUser} from "../../stores/redux/actions";
+import {registerUser} from "../../../stores/redux/actions";
 
 class RegisterContainer extends React.Component {
     constructor(props) {

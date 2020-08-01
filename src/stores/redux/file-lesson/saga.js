@@ -54,7 +54,7 @@ function* deleteFileLesson({payload}) {
         //     // yield put(registerUserError(registerUser.message));
         // }
     } catch (error) {
-        alert(error)
+        alert('313131')
         // yield put(registerUserError(error));
     }
 }

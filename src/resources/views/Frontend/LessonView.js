@@ -1,6 +1,6 @@
 import React from "react";
 import "react-mde/lib/styles/css/react-mde-all.css";
-import CreateContainer from "../../containers/Frontend/Lesson/CreateContainer";
+import ShowContainer from "../../containers/Frontend/Lesson/ShowContainer";
 
 
 export default class LessonView extends React.Component {
@@ -9,13 +9,14 @@ export default class LessonView extends React.Component {
         this.state = {
             lesson: "**Hello world!!!**",
             tab: "write" | "preview",
+            id: props.match.params.id
         };
     }
 
     render() {
         return (
             <div>
-               <CreateContainer />
+                <ShowContainer id={this.state.id} />
             </div>
         );
     }

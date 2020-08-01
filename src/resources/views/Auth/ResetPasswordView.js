@@ -1,7 +1,7 @@
 import React from "react";
-import {checkAuthenticated} from "../../helpers/Authentication";
+import {checkAuthenticated} from "../../../helpers/Authentication";
 
-export default class ForgotPasswordView extends React.Component {
+export default class ResetPasswordView extends React.Component {
     constructor(props) {
         super(props)
 
@@ -11,7 +11,7 @@ export default class ForgotPasswordView extends React.Component {
     render() {
         return (
             <div>
-                <h2>ForgotPasswordView</h2>
+                <h2>ResetPasswordView</h2>
             </div>
         );
     }

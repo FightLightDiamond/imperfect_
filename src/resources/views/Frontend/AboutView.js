@@ -1,10 +1,10 @@
 import React from "react";
 
-export default class CreateView extends React.Component {
+export default class AboutView extends React.Component {
     render() {
         return (
             <div>
-                <h2>Lesson CreateView</h2>
+                <h1>About</h1>
             </div>
         );
     }

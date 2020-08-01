@@ -1,20 +1,28 @@
 import FactoryService from '../../services/FactoryService';
 
-const createLessonAsync = async (payload) =>
-    await FactoryService.request('LessonService').create(payload)
+const getLessonAsync = async (id) =>
+    await FactoryService.request('LessonService').show(id)
         .then(authUser => authUser)
-        .catch(error => error);
+        .catch(error => error)
 
-
-const updateLessonAsync = async (id, payload) => {
-    await FactoryService.request('LessonService').update(id, payload)
+const getLessonsAsync = async (filter) =>
+    await FactoryService.request('LessonService').index(filter)
         .then(authUser => authUser)
-        .catch(error => error);
-}
+        .catch(error => error)
 
-const deleteLessonAsync = async (id) =>
-    await FactoryService.request('LessonService').delete(id)
+const createLessonAsync = async (filter) =>
+    await FactoryService.request('LessonService').create(filter)
         .then(authUser => authUser)
-        .catch(error => error);
+        .catch(error => error)
 
-export {createLessonAsync, updateLessonAsync, deleteLessonAsync}
+const updateLessonAsync = async (id, filter) =>
+    await FactoryService.request('LessonService').update(id, filter)
+        .then(authUser => authUser)
+        .catch(error => error)
+
+const destroyLessonAsync = async (id) =>
+    await FactoryService.request('LessonService').destroy(id)
+        .then(authUser => authUser)
+        .catch(error => error)
+
+export {getLessonsAsync, createLessonAsync, destroyLessonAsync, getLessonAsync, updateLessonAsync}

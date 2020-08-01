@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter} from 'react-router-dom'
 import './App.css';
 import {Container} from "react-bootstrap";
-import NavbarTop from "./components/layout/NavbarTop";
+import NavbarTop from "./resources/components/layout/NavbarTop";
 import MainRoutePlace from "./routers/MainRoutePlace";
 import {connect} from "react-redux";
 import {loginUser} from "./stores/redux/auth/actions";

@@ -1,16 +1,66 @@
 import {call, put} from 'redux-saga/effects';
-import {createLessonAsync, updateLessonAsync, deleteLessonAsync} from './api'
+import {
+    getLessonAsync,
+    getLessonsAsync,
+    createLessonAsync,
+    updateLessonAsync,
+    destroyLessonAsync
+} from './api'
 
 import {
+    getLessonsAction,
+    getLessonErrorAction,
+    getLessonSuccessAction,
+    getLessonsErrorAction,
+    getLessonsSuccessAction,
     createLessonErrorAction,
     createLessonSuccessAction,
     updateLessonSuccessAction,
     updateLessonErrorAction,
-    deleteLessonSuccessAction,
-    deleteLessonErrorAction,
+    destroyLessonSuccessAction,
+    destroyLessonErrorAction,
 } from './actions';
 
-function* createLesson({payload}) {
+function* index({payload}) {
+    console.log('payload', payload)
+    const {filter} = payload
+
+    try {
+        const res = yield call(getLessonsAsync, filter);
+        console.log('res show', res)
+
+        if (res.status !== 200)
+            yield put(getLessonsErrorAction(res.statusText))
+        else
+            yield put(getLessonsSuccessAction(res.data));
+
+    } catch (error) {
+        console.log('error', error)
+        yield put(getLessonsErrorAction(error));
+    }
+}
+
+function* find({payload}) {
+    console.log('payload', payload)
+
+    const {id} = payload;
+
+    try {
+        const res = yield call(getLessonAsync, id);
+        console.log('res show', res)
+
+        if (res.status !== 200)
+            yield put(getLessonErrorAction(res.data))
+        else
+            yield put(getLessonSuccessAction(res.data));
+
+    } catch (error) {
+        console.log('error', error)
+        yield put(getLessonSuccessAction(error));
+    }
+}
+
+function* create({payload}) {
     console.log('payload', payload)
 
     const {lesson} = payload;
@@ -30,35 +80,34 @@ function* createLesson({payload}) {
     }
 }
 
-function* updateLesson({payload}) {
-    const {id, file} = payload;
+function* update({payload}) {
+    const {id, lesson} = payload;
 
     try {
-        const res = yield call(updateLessonAsync, id, file);
-
-        // if (!res.message) {
-        yield put(updateLessonSuccessAction(res.data));
-        // }
-        // else {
-        //     yield put(loginUserError(loginUser.message));
-        // }
+        const res = yield call(updateLessonAsync, id, lesson);
+        console.log('RES', res)
+        if (res.status === 200) {
+            yield put(updateLessonSuccessAction(res.data));
+        } else {
+            yield put(updateLessonErrorAction(res));
+        }
     } catch (error) {
+        console.log(error)
         yield put(updateLessonErrorAction(error));
     }
 }
 
-function* deleteLesson({payload}) {
-    try {
-        const registerUser = yield call(deleteLessonAsync, payload);
-        // if (!registerUser.message) {
+function* destroy({payload}) {
+    const {id} = payload;
 
-        yield put(deleteLessonSuccessAction(registerUser));
-        // } else {
-        //     // yield put(registerUserError(registerUser.message));
-        // }
+    try {
+        yield call(destroyLessonAsync, id);
+        yield put(getLessonsAction());
+        yield put(destroyLessonSuccessAction());
     } catch (error) {
-        yield put(deleteLessonErrorAction(error));
+        console.log(error)
+        yield put(destroyLessonErrorAction(error));
     }
 }
 
-export {createLesson, updateLesson, deleteLesson}
+export {find, index, create, update, destroy}

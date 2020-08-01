@@ -1,10 +1,10 @@
 import React from "react";
 
-export default class UpdateView extends React.Component {
+export default class My404View extends React.Component {
     render() {
         return (
             <div>
-                <h2>Lesson UpdateView</h2>
+                <h2>404</h2>
             </div>
         );
     }

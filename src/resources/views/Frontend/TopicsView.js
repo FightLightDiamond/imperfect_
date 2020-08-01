@@ -2,7 +2,7 @@ import React from "react";
 import {Route, Link} from 'react-router-dom'
 import TopicView from "./TopicView";
 
-export default class Topics extends React.Component {
+export default class TopicViews extends React.Component {
     render() {
         return (
             <div>

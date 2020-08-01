@@ -1,19 +1,55 @@
 import React from "react";
-import HomeView from "../views/Frontend/HomeView";
-import TopicsView from "../views/Frontend/TopicsView";
-import {Route} from 'react-router-dom'
-import AboutView from "../views/Frontend/AboutView";
-import LoginView from "../views/Auth/LoginView";
-import RegisterView from "../views/Auth/RegisterView";
-import ForgotPasswordView from "../views/Auth/ForgotPasswordView";
-import ResetPasswordView from "../views/Auth/ResetPasswordView";
-import LessonView from "../views/Frontend/LessonView";
-import TestView from "../views/Frontend/TestView";
-import QuizView from "../views/Frontend/QuizView";
+import HomeView from "../resources/views/Frontend/HomeView";
+import TopicsView from "../resources/views/Frontend/TopicsView";
+import {Route, Redirect, Switch} from 'react-router-dom'
+import AboutView from "../resources/views/Frontend/AboutView";
+import LoginView from "../resources/views/Auth/LoginView";
+import RegisterView from "../resources/views/Auth/RegisterView";
+import ForgotPasswordView from "../resources/views/Auth/ForgotPasswordView";
+import ResetPasswordView from "../resources/views/Auth/ResetPasswordView";
+import LessonView from "../resources/views/Frontend/LessonView";
+import LessonsView from "../resources/views/Frontend/LessonsView";
+import TestView from "../resources/views/Frontend/TestView";
+import QuizView from "../resources/views/Frontend/QuizView";
 import PrivateRoute from './PrivateRoute'
 import GuestRoute from './GuestRoute'
+// import My404View from "../resources/views/My404View";
+import LogoutView from "../resources/views/Auth/LogoutView";
+
+import CreateView from '../resources/views/Administrator/Lesson/CreateView'
+import UpdateView from '../resources/views/Administrator/Lesson/UpdateView'
 
 export default class MainRoutePlace extends React.Component {
+
+    GuestRouteGroup = (isAuthenticated) => {
+        return (
+            <Switch>
+                <GuestRoute isAuthenticated={isAuthenticated} path="/login" component={LoginView}/>
+                <GuestRoute isAuthenticated={isAuthenticated} path="/forgot" component={ForgotPasswordView}/>
+                <GuestRoute isAuthenticated={isAuthenticated} path="/register" component={RegisterView}/>
+                <GuestRoute isAuthenticated={isAuthenticated} path="/reset" component={ResetPasswordView}/>
+            </Switch>
+        )
+    }
+
+    PrivateRouteGroup = (isAuthenticated) => {
+        return (
+            <Switch>
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/lesson/:id" component={LessonView}/>
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/lessons" component={LessonsView}/>
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/quiz" component={QuizView}/>
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/topics" component={TopicsView}/>
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/test" component={TestView}/>
+
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/logout" component={LogoutView}/>
+
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/lesson-create" component={CreateView}/>
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/lesson-edit/:id" component={UpdateView}/>
+
+            </Switch>
+        )
+    }
+
     render() {
         const {isAuthenticated} = this.props
 
@@ -22,16 +58,14 @@ export default class MainRoutePlace extends React.Component {
                 <Route exact path="/" component={HomeView}/>
                 <Route path="/about" component={AboutView}/>
 
-                <PrivateRoute isAuthenticated={isAuthenticated} path="/lesson" component={LessonView}/>
-                <PrivateRoute isAuthenticated={isAuthenticated} path="/quiz" component={QuizView}/>
 
-                <GuestRoute isAuthenticated={isAuthenticated} path="/login" component={LoginView}/>
-                <GuestRoute isAuthenticated={isAuthenticated} path="/forgot" component={ForgotPasswordView}/>
-                <GuestRoute isAuthenticated={isAuthenticated} path="/register" component={RegisterView}/>
-                <GuestRoute isAuthenticated={isAuthenticated} path="/reset" component={ResetPasswordView}/>
+                {this.GuestRouteGroup(isAuthenticated)}
+                {this.PrivateRouteGroup(isAuthenticated)}
 
-                <PrivateRoute isAuthenticated={isAuthenticated} path="/topics" component={TopicsView}/>
-                <PrivateRoute isAuthenticated={isAuthenticated} path="/test" component={TestView}/>
+
+                {/*<Route path='/404' component={My404View}/>*/}
+                {/*<Redirect from='*' to='/404'/>*/}
+
             </div>
         );
     }

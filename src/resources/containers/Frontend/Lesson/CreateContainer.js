@@ -11,8 +11,8 @@ import {
     getFileLessonAction,
     updateFileLessonAction,
     deleteFileLessonAction
-} from "../../../stores/redux/file-lesson/actions";
-import {createLessonAction, updateLessonAction} from "../../../stores/redux/lesson/actions";
+} from "../../../../stores/redux/file-lesson/actions";
+import {createLessonAction, updateLessonAction} from "../../../../stores/redux/lesson/actions";
 
 const converter = new Showdown.Converter({
     tables: true,
@@ -38,14 +38,6 @@ class CreateContainer extends React.Component {
     componentDidMount() {
         const {createLessonAction} = this.props
         createLessonAction({lesson: {section_id: 1, title: 'a', intro: 'b'}})
-
-        const {lesson} = this.props
-
-        // this.setState({
-        //
-        // });
-
-        console.log('render', lesson)
     }
 
     render() {
@@ -73,13 +65,6 @@ class CreateContainer extends React.Component {
             height: '100%'
         };
 
-        // const {lesson} = this.props
-        //
-        // this.setState({
-        //
-        // });
-
-        // console.log('render', lesson)
 
         return (
             <div>
@@ -190,10 +175,10 @@ class CreateContainer extends React.Component {
 }
 
 const mapStateToProps = ({fileLesson, Lesson}) => {
-    const {image} = fileLesson;
-    const {lesson} = Lesson;
+    // const {image} = fileLesson;
+    const {lesson, loading, error} = Lesson;
 
-    return {fileLesson, lesson};
+    return {fileLesson, lesson, loading, error};
 };
 
 export default connect(

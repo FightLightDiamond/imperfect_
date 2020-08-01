@@ -13,7 +13,7 @@ import {
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_ERROR
 } from '../actions';
-import {checkAuthenticated} from "../../../helpers/Authentication";
+import {checkAuthenticated, destroyAuth} from "../../../helpers/Authentication";
 
 const INIT_STATE = {
     isAuthenticated: checkAuthenticated('user'),
@@ -56,7 +56,8 @@ export default (state = INIT_STATE, action) => {
             alert('REGISTER_USER_ERROR')
             return {...state, loading: false, user: '', error: action.payload.message};
         case LOGOUT_USER:
-            return {...state, user: null, error: ''};
+            destroyAuth('user')
+            return {...state, user: null, isAuthenticated: false};
         default:
             return {...state};
     }
