@@ -1,7 +1,7 @@
 import React from "react";
 import HomeView from "../resources/views/Frontend/HomeView";
 import TopicsView from "../resources/views/Frontend/TopicsView";
-import {Route, Redirect, Switch} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 import AboutView from "../resources/views/Frontend/AboutView";
 import LoginView from "../resources/views/Auth/LoginView";
 import RegisterView from "../resources/views/Auth/RegisterView";
@@ -17,6 +17,7 @@ import GuestRoute from './GuestRoute'
 import LogoutView from "../resources/views/Auth/LogoutView";
 
 import CreateView from '../resources/views/Administrator/Lesson/CreateView'
+import QuestionCreateView from '../resources/views/Administrator/Question/CreateView'
 import UpdateView from '../resources/views/Administrator/Lesson/UpdateView'
 
 export default class MainRoutePlace extends React.Component {
@@ -42,10 +43,13 @@ export default class MainRoutePlace extends React.Component {
                 <PrivateRoute isAuthenticated={isAuthenticated} path="/test" component={TestView}/>
 
                 <PrivateRoute isAuthenticated={isAuthenticated} path="/logout" component={LogoutView}/>
-
+                /*
+                    Backend
+                 */
                 <PrivateRoute isAuthenticated={isAuthenticated} path="/lesson-create" component={CreateView}/>
                 <PrivateRoute isAuthenticated={isAuthenticated} path="/lesson-edit/:id" component={UpdateView}/>
 
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/question-create" component={QuestionCreateView}/>
             </Switch>
         )
     }

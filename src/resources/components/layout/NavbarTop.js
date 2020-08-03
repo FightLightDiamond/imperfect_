@@ -36,7 +36,6 @@ export default class NavbarTop extends React.Component {
                     <Link to="/" className={'nav-link'}>Home</Link>
 
                     <PrivateLink to="/lessons" className={'nav-link'} name={'Lesson'} isAuthenticated={isAuthenticated}/>
-                    <Link to="/lesson/1" className={'nav-link'} >Lesson detail</Link>
                     <PrivateLink to="/quiz" className={'nav-link'} name={'Quiz'} isAuthenticated={isAuthenticated}/>
                     <PrivateLink to="/test" className={'nav-link'} name={'Test'} isAuthenticated={isAuthenticated}/>
 

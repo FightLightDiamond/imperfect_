@@ -36,7 +36,6 @@ class CreateContainer extends React.Component {
 }
 
 const mapStateToProps = ({fileLesson, Lesson}) => {
-    // const {image} = fileLesson;
     const {lesson, loading, error} = Lesson;
 
     return {fileLesson, lesson, loading, error};

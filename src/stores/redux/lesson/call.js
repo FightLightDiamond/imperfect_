@@ -50,7 +50,7 @@ function* find({payload}) {
         console.log('res show', res)
 
         if (res.status !== 200)
-            yield put(getLessonErrorAction(res.data))
+            yield put(getLessonErrorAction(res.statusText))
         else
             yield put(getLessonSuccessAction(res.data));
 
@@ -61,19 +61,16 @@ function* find({payload}) {
 }
 
 function* create({payload}) {
-    console.log('payload', payload)
-
     const {lesson} = payload;
 
     try {
         const res = yield call(createLessonAsync, lesson);
-        console.log('res create', res)
-        // if (!res.message) {
-        yield put(createLessonSuccessAction(res.data));
-        // }
-        // else {
-        //     yield put(loginUserError(loginUser.message));
-        // }
+
+        if (res.status === 200) {
+            yield put(createLessonSuccessAction(res.data));
+        } else {
+            yield put(createLessonErrorAction(res.statusText));
+        }
     } catch (error) {
         console.log('error', error)
         yield put(createLessonErrorAction(error));

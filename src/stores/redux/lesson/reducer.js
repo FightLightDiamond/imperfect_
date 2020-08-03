@@ -16,6 +16,8 @@ import {
     DELETE_LESSON_ERROR,
 } from './actions';
 
+import {toast } from 'react-toastify';
+
 const INIT_STATE = {
     lessons: [],
     lesson: {
@@ -27,6 +29,8 @@ const INIT_STATE = {
     loading: false,
     error: '',
 };
+
+
 
 export default (state = INIT_STATE, action) => {
     switch (action.type) {
@@ -63,7 +67,15 @@ export default (state = INIT_STATE, action) => {
             alert(UPDATE_LESSON_ERROR)
             return {...state, loading: false, error: action.payload.error}
         case UPDATE_LESSON_SUCCESS:
-            alert(UPDATE_LESSON_SUCCESS)
+            toast.success(UPDATE_LESSON_SUCCESS, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+            });
 
             // const {id, title, intro, content} = action.payload.lesson;
             //

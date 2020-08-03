@@ -49,9 +49,6 @@ class CreateContainer extends React.Component {
         const {updateLessonAction} = this.props
         const {id} = this.props.lesson
         const {title, intro, content} = this.state
-
-        alert('onUpdate');
-
         updateLessonAction(id, {title, intro, content})
     }
 }

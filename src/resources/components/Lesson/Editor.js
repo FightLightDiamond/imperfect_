@@ -4,6 +4,8 @@ import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import {Form} from "react-bootstrap";
 import UploadFileComponent from '../Lesson/UploadFileComponent'
+import {toast} from "react-toastify";
+toast.configure()
 
 const converter = new Showdown.Converter({
     tables: true,
@@ -38,8 +40,6 @@ export default class Editor extends React.Component {
         const {updateLessonAction} = this.props
         const {id} = this.props.lesson
         const {title, intro, content} = this.state
-
-        alert('onUpdate');
 
         updateLessonAction(id, {title, intro, content})
     }

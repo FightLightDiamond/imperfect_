@@ -6,9 +6,21 @@ class Loading extends PureComponent {
 
     render() {
         return (
-            <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-            </Spinner>
+            <div className={'text-center'} style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%'
+            }}>
+                 <Spinner
+                    variant="primary"
+                    as="span"
+                    aria-hidden="true"
+                    animation="border"
+                    role="status">
+
+                </Spinner>
+            </div>
+
         );
     }
 }

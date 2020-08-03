@@ -2,6 +2,8 @@ import React from "react";
 import {connect} from "react-redux";
 import {loginUser} from "../../../stores/redux/actions";
 import {Button, Form} from "react-bootstrap";
+import Loading from "../../components/common/Loading";
+import ButtonLoading from "../../components/common/ButtonLoading";
 
 class LoginContainer extends React.Component {
 
@@ -19,9 +21,11 @@ class LoginContainer extends React.Component {
     }
 
     render() {
+        const {loading} = this.props
+
         return (
             <div>
-                Loading: {this.props.loading}
+                Loading: {loading}
                 <Form>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
@@ -39,9 +43,11 @@ class LoginContainer extends React.Component {
                                       placeholder="Password"/>
                     </Form.Group>
 
-                    <Button variant="primary" onClick={this.onUserLogin}>
-                        Submit
-                    </Button>
+                    <ButtonLoading
+                        loading={loading}
+                        event={this.onUserLogin}
+                        title={'Login'}/>
+
                 </Form>
             </div>
         );

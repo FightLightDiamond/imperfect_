@@ -6,6 +6,8 @@ import NavbarTop from "./resources/components/layout/NavbarTop";
 import MainRoutePlace from "./routers/MainRoutePlace";
 import {connect} from "react-redux";
 import {loginUser} from "./stores/redux/auth/actions";
+import 'react-toastify/dist/ReactToastify.css';
+import {ToastContainer} from "react-toastify";
 
 class App extends React.Component {
     render() {
@@ -17,6 +19,7 @@ class App extends React.Component {
                 <Container style={{padding: "20px 0"}}>
                     <MainRoutePlace isAuthenticated={isAuthenticated} />
                 </Container>
+                <ToastContainer />
             </BrowserRouter>
         );
     }
