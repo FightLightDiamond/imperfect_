@@ -30,7 +30,7 @@ class ShowContainer extends React.Component {
 
     render() {
         const {lesson} = this.props
-        console.log('render componentDidMount', lesson)
+
         return (
             <div>
                 <h1>{lesson.title}</h1>

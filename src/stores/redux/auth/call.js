@@ -26,6 +26,7 @@ function* login({payload}) {
             yield put(loginUserError(loginUser.message));
         }
     } catch (error) {
+        console.log(error)
         yield put(loginUserError(error));
     }
 }

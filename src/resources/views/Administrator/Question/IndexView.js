@@ -1,11 +1,10 @@
 import React from "react";
+import IndexContainer from "../../../containers/Administrator/Lesson/IndexContainer";
 
 export default class IndexView extends React.Component {
     render() {
         return (
-            <div>
-                <h2>Question IndexView</h2>
-            </div>
+            <IndexContainer/>
         );
     }
 }

@@ -8,7 +8,10 @@ const loginAsync = async (email, password) => {
 
     return await FactoryService.request('AuthService').login(auth)
         .then(authUser => authUser)
-        .catch(error => error);
+        .catch(error => {
+            console.log(error)
+            return error
+        });
 }
 
 const registerAsync = async (email, password, password_confirmation) =>

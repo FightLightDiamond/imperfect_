@@ -46,18 +46,18 @@ export default class UploadFileComponent extends React.Component {
                     multiple={true}
                     maxSize={10000000}
                     onDrop={acceptedFiles => {
-                        acceptedFiles.map(file => {
+                        acceptedFiles.map(file =>
                             this.setState({
                                 filesUploaded: [...this.state.filesUploaded, file]
                             })
-                        })
+                        )
 
                         this.setState({
                             files: this.state.filesUploaded.map((file, key) => (
                                 <div style={thumb} key={key}>
                                     <div style={thumbInner}>
                                         <button onClick={() => deleteFileLessonAction(key)}>x</button>
-                                        <img
+                                        <img alt={key}
                                             src={URL.createObjectURL(file)}
                                             style={img}
                                         />

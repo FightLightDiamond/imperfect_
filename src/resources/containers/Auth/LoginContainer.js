@@ -1,8 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {loginUser} from "../../../stores/redux/actions";
-import {Button, Form} from "react-bootstrap";
-import Loading from "../../components/common/Loading";
+import {Form} from "react-bootstrap";
 import ButtonLoading from "../../components/common/ButtonLoading";
 
 class LoginContainer extends React.Component {

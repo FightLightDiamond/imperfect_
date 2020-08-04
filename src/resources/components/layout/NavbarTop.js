@@ -1,9 +1,9 @@
 import React from "react";
 import {Nav, Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import GuestLink from "../../../routers/GuestLink";
-import PrivateLink from "../../../routers/PrivateLink";
-import axios from 'axios'
+import GuestLink from "../../../routers/Link/GuestLink";
+import PrivateLink from "../../../routers/Link/PrivateLink";
+// import axios from 'axios'
 
 export default class NavbarTop extends React.Component {
     constructor(props) {
@@ -17,7 +17,7 @@ export default class NavbarTop extends React.Component {
     }
 
     componentDidMount() {
-        const wordPressSiteUrl = 'http://localhost:4000/';
+        // const wordPressSiteUrl = 'http://localhost:4000/';
 
         this.setState({
             loading: true

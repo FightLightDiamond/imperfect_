@@ -32,7 +32,7 @@ class CreateContainer extends React.Component {
     }
 
     render() {
-        const {lesson, loading, error, deleteFileLessonAction, updateLessonAction} = this.props
+        const {lesson, loading, deleteFileLessonAction, updateLessonAction} = this.props
 
         return (
             !loading ? <div>

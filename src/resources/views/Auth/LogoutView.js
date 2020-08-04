@@ -4,10 +4,6 @@ import {connect} from "react-redux";
 import {logoutUser} from "../../../stores/redux/auth/actions";
 
 class LogoutView extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         this.props.logoutUser('user')
         this.props.history.push('/login')
