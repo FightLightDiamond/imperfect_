@@ -30,41 +30,33 @@ const INIT_STATE = {
     error: '',
 };
 
-
-
 export default (state = INIT_STATE, action) => {
     switch (action.type) {
         case GET_LESSON:
             return {...state, loading: true, error: ''};
         case GET_LESSON_ERROR:
-            console.log(GET_LESSON_ERROR, action.payload)
             return {...state, loading: false, error: action.payload.error}
         case GET_LESSON_SUCCESS:
-            console.log(GET_LESSON_SUCCESS, action.payload)
             return {...state, lesson: action.payload.lesson, loading: false, error: ''}
 
         case GET_LESSONS:
             return {...state, loading: true, error: ''};
         case GET_LESSONS_ERROR:
-            console.log(GET_LESSONS_ERROR, action.payload)
             return {...state, loading: false, error: action.payload.error}
         case GET_LESSONS_SUCCESS:
-            console.log(GET_LESSONS_SUCCESS, action.payload)
             return {...state, lessons: action.payload.lessons, loading: false, error: ''}
 
         case CREATE_LESSON:
             return {...state, loading: true, error: ''};
         case CREATE_LESSON_ERROR:
-            alert(CREATE_LESSON_ERROR)
             return {...state, loading: false, error: action.payload.error}
         case CREATE_LESSON_SUCCESS:
-            alert(CREATE_LESSON_SUCCESS)
             return {...state, lesson: action.payload.lesson, loading: false, error: ''}
 
         case UPDATE_LESSON:
             return {...state, loading: true, error: ''};
         case UPDATE_LESSON_ERROR:
-            alert(UPDATE_LESSON_ERROR)
+            toast(UPDATE_LESSON_ERROR)
             return {...state, loading: false, error: action.payload.error}
         case UPDATE_LESSON_SUCCESS:
             toast.success(UPDATE_LESSON_SUCCESS, {
@@ -90,10 +82,10 @@ export default (state = INIT_STATE, action) => {
         case DELETE_LESSON:
             return {...state, loading: true, error: ''};
         case DELETE_LESSON_ERROR:
-            alert(DELETE_LESSON_ERROR)
+            toast(DELETE_LESSON_ERROR)
             return {...state, loading: false, error: action.payload.error}
         case DELETE_LESSON_SUCCESS:
-            alert(DELETE_LESSON_SUCCESS)
+            toast(DELETE_LESSON_SUCCESS)
             return {...state, loading: false, error: ''}
 
         default:
