@@ -30,26 +30,26 @@ export default class TrueFalseComponent extends React.Component {
                 <table className={'table'}>
                     <thead>
                     <tr>
-                        <th>Answer</th>
                         <th>Reply</th>
+                        <th className={'text-right'}>Answer</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td>
+                        <td>True</td>
+                        <td className={'text-right'}>
                             <input
                                 onChange={() => this.onChangeAnswer(true)}
                                 checked={this.state.true_false.correct} name="answer" type="radio"/>
                         </td>
-                        <td>True</td>
                     </tr>
                     <tr>
-                        <td>
+                        <td>False</td>
+                        <td className={'text-right'}>
                             <input
                                 onChange={() => this.onChangeAnswer(false)}
                                 value={this.state.true_false.incorrect} name="answer" type="radio"/>
                         </td>
-                        <td>False</td>
                     </tr>
                     </tbody>
                 </table>

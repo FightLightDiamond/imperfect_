@@ -1,19 +1,19 @@
 import {
-    GET_LESSON,
-    GET_LESSON_ERROR,
-    GET_LESSON_SUCCESS,
-    GET_LESSONS_ERROR,
-    GET_LESSONS,
-    GET_LESSONS_SUCCESS,
-    CREATE_LESSON,
-    CREATE_LESSON_ERROR,
-    CREATE_LESSON_SUCCESS,
-    UPDATE_LESSON,
-    UPDATE_LESSON_ERROR,
-    UPDATE_LESSON_SUCCESS,
-    DELETE_LESSON,
-    DELETE_LESSON_SUCCESS,
-    DELETE_LESSON_ERROR,
+    GET_QUESTION,
+    GET_QUESTION_ERROR,
+    GET_QUESTION_SUCCESS,
+    GET_QUESTIONS_ERROR,
+    GET_QUESTIONS,
+    GET_QUESTIONS_SUCCESS,
+    CREATE_QUESTION,
+    CREATE_QUESTION_ERROR,
+    CREATE_QUESTION_SUCCESS,
+    UPDATE_QUESTION,
+    UPDATE_QUESTION_ERROR,
+    UPDATE_QUESTION_SUCCESS,
+    DELETE_QUESTION,
+    DELETE_QUESTION_SUCCESS,
+    DELETE_QUESTION_ERROR,
 } from './actions';
 
 import {toast } from 'react-toastify';
@@ -32,40 +32,40 @@ const INIT_STATE = {
 
 export default (state = INIT_STATE, action) => {
     switch (action.type) {
-        case GET_LESSON:
+        case GET_QUESTION:
             return {...state, loading: true, error: ''};
-        case GET_LESSON_ERROR:
-            toast(GET_LESSON_ERROR)
+        case GET_QUESTION_ERROR:
+            toast(GET_QUESTION_ERROR)
             return {...state, loading: false, error: action.payload.error}
-        case GET_LESSON_SUCCESS:
-            // toast(GET_LESSON_SUCCESS)
+        case GET_QUESTION_SUCCESS:
+            // toast(GET_QUESTION_SUCCESS)
             return {...state, lesson: action.payload.lesson, loading: false, error: ''}
 
-        case GET_LESSONS:
+        case GET_QUESTIONS:
             return {...state, loading: true, error: ''};
-        case GET_LESSONS_ERROR:
-            // toast(GET_LESSONS_ERROR)
+        case GET_QUESTIONS_ERROR:
+            // toast(GET_QUESTIONS_ERROR)
             return {...state, loading: false, error: action.payload.error}
-        case GET_LESSONS_SUCCESS:
-            toast(GET_LESSONS_SUCCESS)
+        case GET_QUESTIONS_SUCCESS:
+            toast(GET_QUESTIONS_SUCCESS)
             return {...state, lessons: action.payload.lessons, loading: false, error: ''}
 
-        case CREATE_LESSON:
+        case CREATE_QUESTION:
             return {...state, loading: true, error: ''};
-        case CREATE_LESSON_ERROR:
-            toast(CREATE_LESSON_ERROR)
+        case CREATE_QUESTION_ERROR:
+            toast(CREATE_QUESTION_ERROR)
             return {...state, loading: false, error: action.payload.error}
-        case CREATE_LESSON_SUCCESS:
-            toast(CREATE_LESSON_SUCCESS)
+        case CREATE_QUESTION_SUCCESS:
+            toast(CREATE_QUESTION_SUCCESS)
             return {...state, lesson: action.payload.lesson, loading: false, error: ''}
 
-        case UPDATE_LESSON:
+        case UPDATE_QUESTION:
             return {...state, loading: true, error: ''};
-        case UPDATE_LESSON_ERROR:
-            toast(UPDATE_LESSON_ERROR)
+        case UPDATE_QUESTION_ERROR:
+            toast(UPDATE_QUESTION_ERROR)
             return {...state, loading: false, error: action.payload.error}
-        case UPDATE_LESSON_SUCCESS:
-            toast.success(UPDATE_LESSON_SUCCESS, {
+        case UPDATE_QUESTION_SUCCESS:
+            toast.success(UPDATE_QUESTION_SUCCESS, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: true,
@@ -85,13 +85,13 @@ export default (state = INIT_STATE, action) => {
 
             return {...state, lesson: action.payload.lesson, loading: false, error: ''}
 
-        case DELETE_LESSON:
+        case DELETE_QUESTION:
             return {...state, loading: true, error: ''};
-        case DELETE_LESSON_ERROR:
-            toast(DELETE_LESSON_ERROR)
+        case DELETE_QUESTION_ERROR:
+            toast(DELETE_QUESTION_ERROR)
             return {...state, loading: false, error: action.payload.error}
-        case DELETE_LESSON_SUCCESS:
-            toast(DELETE_LESSON_SUCCESS)
+        case DELETE_QUESTION_SUCCESS:
+            toast(DELETE_QUESTION_SUCCESS)
             return {...state, loading: false, error: ''}
 
         default:

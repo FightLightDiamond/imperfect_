@@ -1,30 +1,30 @@
-import axios from 'axios';
-import Api from '../../config/Api';
+import axios from 'axios'
+import Api from '../../config/Api'
 
 export default class BaseService {
     constructor(auth, domain = null) {
         if (auth) {
-            this.setAuth(auth);
+            this.setAuth(auth)
         }
 
         if (domain) {
-            this.setDomain(domain);
+            this.setDomain(domain)
         } else {
-            this.setDomain(Api.domain);
+            this.setDomain(Api.domain)
         }
     }
 
     setDomain = (domain) => {
-        this.domain = domain;
-    };
+        this.domain = domain
+    }
 
     getDomain = () => {
-        return this.domain;
-    };
+        return this.domain
+    }
 
     getUrl = uri => {
-        return this.getDomain() + uri;
-    };
+        return this.getDomain() + uri
+    }
 
     setAuth = (auth) => {
         if (this.isAuthenticated(auth)) {
@@ -35,7 +35,7 @@ export default class BaseService {
                 return config
             })
         }
-    };
+    }
 
     isAuthenticated = (auth) => {
         try {
@@ -52,26 +52,38 @@ export default class BaseService {
     }
 
     get = async (uri, params = {}) => {
-        return await axios.get(this.getUrl(uri), {params: params});
-    };
+        return await axios.get(this.getUrl(uri), {params: params})
+            .then(authUser => authUser)
+            .catch(error => error)
+    }
 
     post = async (uri, params = {}) => {
-        return await axios.post(this.getUrl(uri), params);
-    };
+        return await axios.post(this.getUrl(uri), params)
+            .then(authUser => authUser)
+            .catch(error => error)
+    }
 
     put = async (uri, params = {}) => {
-        return await axios.put(this.getUrl(uri), params);
-    };
+        return await axios.put(this.getUrl(uri), params)
+            .then(authUser => authUser)
+            .catch(error => error)
+    }
 
     patch = async (uri, params = {}) => {
-        return await axios.patch(this.getUrl(uri), params);
-    };
+        return await axios.patch(this.getUrl(uri), params)
+            .then(authUser => authUser)
+            .catch(error => error)
+    }
 
     show = async (uri) => {
-        return await axios.get(this.getUrl(uri));
-    };
+        return await axios.get(this.getUrl(uri))
+            .then(authUser => authUser)
+            .catch(error => error)
+    }
 
     delete = async (uri) => {
-        return await axios.delete(this.getUrl(uri));
-    };
+        return await axios.delete(this.getUrl(uri))
+            .then(authUser => authUser)
+            .catch(error => error)
+    }
 }

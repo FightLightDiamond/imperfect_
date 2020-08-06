@@ -1,8 +1,11 @@
 import React from "react";
 import MultipleChoiceComponent from "../../../components/Question/MultipleChoiceComponent";
 import TrueFalseComponent from "../../../components/Question/TrueFalseComponent";
-import ChooseManyAnswersComponent from "../../../components/Question/ChooseManyAnswersComponent";
+import MultiAnswersComponent from "../../../components/Question/MultiAnswersComponent";
 import FilterComponent from "../../../components/Question/FilterComponent";
+import {converter} from "../../../../helpers/Markdown";
+import ReactMde from "react-mde";
+
 
 export default class CreateView extends React.Component {
     constructor(props) {
@@ -13,6 +16,7 @@ export default class CreateView extends React.Component {
             time: 15,
             status: 0,
             level: 1,
+            question: '',
             true_false: {},
             multi_choice: [
                 {answer: false, reply: ''},
@@ -59,41 +63,7 @@ export default class CreateView extends React.Component {
         })
     }
 
-
-    onAddQuestionMultiAnswer = () => {
-        this.setState({
-            ...this.state, multi_answer: [...this.state.multi_answer, {answer: false, reply: '...'}]
-        })
-    }
-
-    onRemoveQuestionMultiAnswer = (index) => {
-        const removed = this.state.multi_answer.filter((item, i) => {
-            if (i !== index) {
-                return item
-            }
-        });
-
-        this.setState({
-            ...this.state, multi_answer: removed
-        })
-    }
-
-    handleReplyMultiAnswer = (e, index) => {
-        let multi_answer = this.state.multi_answer;
-        multi_answer[index].reply = e.target.value
-
-        this.setState({
-            ...this.state, multi_answer: multi_answer
-        })
-    }
-
-    handleAnswerMultiAnswer = index => {
-        let multi_answer = this.state.multi_answer.map((quest, i) => {
-            quest.answer = i === index;
-
-            return quest
-        })
-
+    handleMultiAnswer = (multi_answer) => {
         this.setState({
             ...this.state, multi_answer: multi_answer
         })
@@ -105,11 +75,23 @@ export default class CreateView extends React.Component {
                 <h2>Question CreateView</h2>
                 {JSON.stringify(this.state)}
 
+                <div className={'row'}>
+                    <div className={'col-lg-12 form-group'}>
+                        <label htmlFor="">Question</label>
+                        <ReactMde
+                            value={this.state.question}
+                            onChange={text => this.setState({question: text})}
+                            selectedTab={this.state.tab}
+                            onTabChange={text => this.setState({tab: text})}
+                            generateMarkdownPreview={markdown =>
+                                Promise.resolve(converter.makeHtml(markdown))
+                            }
+                        />
+                    </div>
+                </div>
+
                 <FilterComponent
-                    type={this.state.type}
                     time={this.state.time}
-                    status={this.state.status}
-                    level={this.state.level}
                     handleType={this.handleType}
                     handleTime={this.handleTime}
                     handleStatus={this.handleStatus}
@@ -117,10 +99,6 @@ export default class CreateView extends React.Component {
                 />
 
                 <div className={'row'}>
-                    <div className={'col-lg-12'}>
-                        <label htmlFor="">Question</label>
-                    </div>
-
                     {
                         parseInt(this.state.type) === 1
                             ? <TrueFalseComponent
@@ -129,20 +107,17 @@ export default class CreateView extends React.Component {
                             : parseInt(this.state.type) === 2
                             ? <MultipleChoiceComponent
                                 handleMultiChoice={this.handleMultiChoice}
-                                // multi_choice={this.state.multi_choice}
-                                // onAddQuestion={this.onAddQuestionMultiChoice}
-                                // onRemoveQuestion={this.onRemoveQuestionMultiChoice}
-                                // handleReplyMultiChoice={this.handleReplyMultiChoice}
-                                // handleAnswerMultiChoice={this.handleAnswerMultiChoice}
                             />
-                            : <ChooseManyAnswersComponent
-                                multi_answer={this.state.multi_answer}
-                                onAddQuestionMultiAnswer={this.onAddQuestionMultiAnswer}
-                                onRemoveQuestionMultiAnswer={this.onRemoveQuestionMultiAnswer}
-                                handleReplyMultiAnswer={this.handleReplyMultiAnswer}
-                                handleAnswerMultiAnswer={this.handleAnswerMultiAnswer}
+                            : <MultiAnswersComponent
+                                handleMultiAnswer={this.handleMultiAnswer}
                             />
                     }
+                </div>
+
+                <div className={'row'}>
+                    <div className={'col-lg-12'}>
+                        <button className={'btn btn-primary'}>Save</button>
+                    </div>
                 </div>
             </div>
         );

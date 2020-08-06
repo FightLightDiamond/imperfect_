@@ -1,11 +1,4 @@
 import {call, put} from 'redux-saga/effects';
-import {
-    getLessonAsync,
-    getLessonsAsync,
-    createLessonAsync,
-    updateLessonAsync,
-    destroyLessonAsync
-} from './api'
 
 import {
     getLessonsAction,
@@ -20,14 +13,14 @@ import {
     destroyLessonSuccessAction,
     destroyLessonErrorAction,
 } from './actions';
+import FactoryService from "../../services/FactoryService";
 
 function* index({payload}) {
     console.log('payload', payload)
     const {filter} = payload
 
     try {
-        const res = yield call(getLessonsAsync, filter);
-        console.log('res show', res)
+        const res = yield call(FactoryService.request('LessonService').index, filter);
 
         if (res.status !== 200)
             yield put(getLessonsErrorAction(res.statusText))
@@ -46,7 +39,7 @@ function* find({payload}) {
     const {id} = payload;
 
     try {
-        const res = yield call(getLessonAsync, id);
+        const res = yield call(FactoryService.request('LessonService').show, id);
         console.log('res show', res)
 
         if (res.status !== 200)
@@ -64,7 +57,7 @@ function* create({payload}) {
     const {lesson} = payload;
 
     try {
-        const res = yield call(createLessonAsync, lesson);
+        const res = yield call(FactoryService.request('LessonService').create, lesson);
 
         if (res.status === 200) {
             yield put(createLessonSuccessAction(res.data));
@@ -81,7 +74,7 @@ function* update({payload}) {
     const {id, lesson} = payload;
 
     try {
-        const res = yield call(updateLessonAsync, id, lesson);
+        const res = yield call(FactoryService.request('LessonService').update, id, lesson);
         console.log('RES', res)
         if (res.status === 200) {
             yield put(updateLessonSuccessAction(res.data));
@@ -98,7 +91,7 @@ function* destroy({payload}) {
     const {id} = payload;
 
     try {
-        yield call(destroyLessonAsync, id);
+        yield call(FactoryService.request('LessonService').destroy, id);
         yield put(getLessonsAction());
         yield put(destroyLessonSuccessAction());
     } catch (error) {

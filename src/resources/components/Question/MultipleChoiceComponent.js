@@ -10,15 +10,18 @@ export default class MultipleChoiceComponent extends React.Component {
                 {answer: false, reply: ''},
             ]
         }
+
     }
 
-    onAddQuestionMultiChoice = () => {
+    onAdd = () => {
         this.setState({
             ...this.state, multi_choice: [...this.state.multi_choice, {answer: false, reply: '...'}]
         })
+
+        this.props.handleMultiChoice(this.state.multi_choice)
     }
 
-    onRemoveQuestionMultiChoice = (index) => {
+    onRemove = (index) => {
         const removed = this.state.multi_choice.filter((item, i) => {
             if (i !== index) {
                 return item
@@ -28,18 +31,22 @@ export default class MultipleChoiceComponent extends React.Component {
         this.setState({
             ...this.state, multi_choice: removed
         })
+
+        this.props.handleMultiChoice(this.state.multi_choice)
     }
 
-    handleReplyMultiChoice = (e, index) => {
+    handleReply = (text, index) => {
         let multi_choice = this.state.multi_choice;
-        multi_choice[index].reply = e.target.value
+        multi_choice[index].reply = text
 
         this.setState({
             ...this.state, multi_choice: multi_choice
         })
+
+        this.props.handleMultiChoice(this.state.multi_choice)
     }
 
-    handleAnswerMultiChoice = index => {
+    handleAnswer = index => {
         let multi_choice = this.state.multi_choice.map((quest, i) => {
             quest.answer = i === index;
 
@@ -49,20 +56,20 @@ export default class MultipleChoiceComponent extends React.Component {
         this.setState({
             ...this.state, multi_choice: multi_choice
         })
+
+        this.props.handleMultiChoice(this.state.multi_choice)
     }
 
     render() {
-        const {multi_choice, onAddQuestion, onRemoveQuestion, handleReplyMultiChoice, handleAnswerMultiChoice} = this.props
-
         return (
             <div className={'col-lg-12'}>
                 <table className={'table'}>
                     <thead>
                     <tr>
-                        <th>Answer</th>
                         <th>Reply</th>
+                        <th>Answer</th>
                         <th className={'text-right'}>
-                            <button onClick={() => onAddQuestion()}
+                            <button onClick={() => this.onAdd()}
                                     className={'btn btn-sm btn-primary'}>Add
                             </button>
                         </th>
@@ -70,12 +77,12 @@ export default class MultipleChoiceComponent extends React.Component {
                     </thead>
                     <tbody>
                     {
-                        multi_choice.map((item, index) => {
+                        this.state.multi_choice.map((item, index) => {
                             return <RadioReplyComponent
                                 key={index}
-                                onRemoveQuestion={onRemoveQuestion}
-                                handleReplyMultiChoice={handleReplyMultiChoice}
-                                handleAnswerMultiChoice={handleAnswerMultiChoice}
+                                onRemove={this.onRemove}
+                                handleReply={this.handleReply}
+                                handleAnswer={this.handleAnswer}
                                 item={item}
                                 index={index}
                             />

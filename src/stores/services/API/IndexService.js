@@ -7,6 +7,7 @@ import CrazyService from './CrazyService'
 import FileLessonService from './FileLessonService'
 import HistoryService from './HistoryService'
 import LessonService from './LessonService'
+import QuestionService from './QuestionService'
 import RemindService from './RemindService'
 import TestService from './TestService'
 import TutorialService from './TutorialService'
@@ -22,6 +23,7 @@ export default {
   FileLessonService,
   HistoryService,
   LessonService,
+  QuestionService,
   RemindService,
   TestService,
   TutorialService,
