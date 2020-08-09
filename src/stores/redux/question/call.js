@@ -53,10 +53,10 @@ function* find({payload}) {
 }
 
 function* create({payload}) {
-    const {lesson} = payload;
+    const {question} = payload;
 
     try {
-        const res = yield call(FactoryService.request('QuestionService').create, lesson);
+        const res = yield call(FactoryService.request('QuestionService').create, question);
 
         if (res.status === 200) {
             yield put(createQuestionSuccessAction(res.data));
@@ -70,10 +70,10 @@ function* create({payload}) {
 }
 
 function* update({payload}) {
-    const {id, lesson} = payload;
+    const {id, question} = payload;
 
     try {
-        const res = yield call(FactoryService.request('QuestionService').update, id, lesson);
+        const res = yield call(FactoryService.request('QuestionService').update, id, question);
         console.log('RES', res)
         if (res.status === 200) {
             yield put(updateQuestionSuccessAction(res.data));

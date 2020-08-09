@@ -20,9 +20,9 @@ export const getQuestionAction = (id) => ({
     payload: {id}
 });
 
-export const getQuestionSuccessAction = (lesson) => ({
+export const getQuestionSuccessAction = (question) => ({
     type: GET_QUESTION_SUCCESS,
-    payload: {lesson}
+    payload: {question}
 });
 
 export const getQuestionErrorAction = (error) => ({
@@ -35,9 +35,9 @@ export const getQuestionsAction = (filter) => ({
     payload: {filter}
 });
 
-export const getQuestionsSuccessAction = (lessons) => ({
+export const getQuestionsSuccessAction = (questions) => ({
     type: GET_QUESTIONS_SUCCESS,
-    payload: {lessons}
+    payload: {questions}
 });
 
 export const getQuestionsErrorAction = (error) => ({
@@ -45,29 +45,29 @@ export const getQuestionsErrorAction = (error) => ({
     payload: {error}
 });
 
-export const createQuestionAction = (lesson) => ({
+export const createQuestionAction = (question) => ({
     type: CREATE_QUESTION,
-    payload: {lesson}
+    payload: {question}
 });
 
-export const createQuestionErrorAction = (lesson) => ({
+export const createQuestionErrorAction = (question) => ({
     type: CREATE_QUESTION_ERROR,
-    payload: {lesson}
+    payload: {question}
 });
 
-export const createQuestionSuccessAction = (lesson) => ({
+export const createQuestionSuccessAction = (question) => ({
     type: CREATE_QUESTION_SUCCESS,
-    payload: {lesson}
+    payload: {question}
 });
 
-export const updateQuestionAction = (id, lesson) => ({
+export const updateQuestionAction = (id, question) => ({
     type: UPDATE_QUESTION,
-    payload: {id, lesson}
+    payload: {id, question}
 });
 
-export const updateQuestionSuccessAction = (lesson) => ({
+export const updateQuestionSuccessAction = (question) => ({
     type: UPDATE_QUESTION_SUCCESS,
-    payload: {lesson}
+    payload: {question}
 });
 
 export const updateQuestionErrorAction = (error) => ({
@@ -85,7 +85,7 @@ export const destroyQuestionErrorAction = (error) => ({
     payload: {error}
 });
 
-export const destroyQuestionSuccessAction = (lesson) => ({
+export const destroyQuestionSuccessAction = (question) => ({
     type: DELETE_QUESTION_SUCCESS,
-    payload: {lesson}
+    payload: {question}
 });

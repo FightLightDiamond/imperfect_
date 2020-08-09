@@ -4,6 +4,7 @@ import { combineReducers } from 'redux';
 import authUser from './auth/reducer';
 import fileLesson from './file-lesson/reducer'
 import Lesson from './lesson/reducer'
+import Question from './question/reducer'
 // import todoApp from './todo/reducer';
 // import chatApp from './chat/reducer';
 // import surveyListApp from './surveyList/reducer';
@@ -15,6 +16,7 @@ const reducers = combineReducers({
   authUser,
   fileLesson,
   Lesson,
+  Question,
   // todoApp,
   // chatApp,
   // surveyListApp,

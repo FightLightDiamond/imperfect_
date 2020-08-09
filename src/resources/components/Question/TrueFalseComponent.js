@@ -21,7 +21,7 @@ export default class TrueFalseComponent extends React.Component {
 
         const {handleAnswerTrueFalse} = this.props
 
-        handleAnswerTrueFalse(true_false)
+        handleAnswerTrueFalse(answer)
     }
 
     render() {

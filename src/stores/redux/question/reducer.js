@@ -19,14 +19,14 @@ import {
 import {toast } from 'react-toastify';
 
 const INIT_STATE = {
-    lessons: [],
-    lesson: {
+    questions: [],
+    question: {
         id: 0,
         title: null,
         intro: null,
         content: null
     },
-    loading: false,
+    loading: true,
     error: '',
 };
 
@@ -39,7 +39,7 @@ export default (state = INIT_STATE, action) => {
             return {...state, loading: false, error: action.payload.error}
         case GET_QUESTION_SUCCESS:
             // toast(GET_QUESTION_SUCCESS)
-            return {...state, lesson: action.payload.lesson, loading: false, error: ''}
+            return {...state, question: action.payload.question, loading: false, error: ''}
 
         case GET_QUESTIONS:
             return {...state, loading: true, error: ''};
@@ -48,7 +48,7 @@ export default (state = INIT_STATE, action) => {
             return {...state, loading: false, error: action.payload.error}
         case GET_QUESTIONS_SUCCESS:
             toast(GET_QUESTIONS_SUCCESS)
-            return {...state, lessons: action.payload.lessons, loading: false, error: ''}
+            return {...state, questions: action.payload.questions, loading: false, error: ''}
 
         case CREATE_QUESTION:
             return {...state, loading: true, error: ''};
@@ -57,7 +57,7 @@ export default (state = INIT_STATE, action) => {
             return {...state, loading: false, error: action.payload.error}
         case CREATE_QUESTION_SUCCESS:
             toast(CREATE_QUESTION_SUCCESS)
-            return {...state, lesson: action.payload.lesson, loading: false, error: ''}
+            return {...state, question: action.payload.question, loading: false, error: ''}
 
         case UPDATE_QUESTION:
             return {...state, loading: true, error: ''};
@@ -75,15 +75,15 @@ export default (state = INIT_STATE, action) => {
                 progress: undefined,
             });
 
-            // const {id, title, intro, content} = action.payload.lesson;
+            // const {id, title, intro, content} = action.payload.question;
             //
-            // const lessons = state.lessons.map(item => (item.id == id) ? {
+            // const questions = state.questions.map(item => (item.id == id) ? {
             //     ...item, title: title, intro: intro, content: content
             // } : item);
 
-            // console.log('lessons', lessons)
+            // console.log('questions', questions)
 
-            return {...state, lesson: action.payload.lesson, loading: false, error: ''}
+            return {...state, question: action.payload.question, loading: false, error: ''}
 
         case DELETE_QUESTION:
             return {...state, loading: true, error: ''};

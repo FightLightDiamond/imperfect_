@@ -8,7 +8,7 @@ import UpdateLessonView from "../../resources/views/Administrator/Lesson/UpdateV
 
 import CreateQuestionView from "../../resources/views/Administrator/Question/CreateView";
 import UpdateQuestionView from "../../resources/views/Administrator/Question/UpdateView";
-
+import QuestionView from "../../resources/views/Administrator/Question/ShowView";
 
 
 export default class AdminRouteGroup extends React.Component {
@@ -23,6 +23,7 @@ export default class AdminRouteGroup extends React.Component {
 
                 <PrivateRoute isAuthenticated={isAuthenticated} path="/question-create" component={CreateQuestionView}/>
                 <PrivateRoute isAuthenticated={isAuthenticated} path="/question-edit/:id" component={UpdateQuestionView}/>
+                <PrivateRoute isAuthenticated={isAuthenticated} path="/question/:id" component={QuestionView}/>
             </Switch>
         );
     }
