@@ -1,30 +1,14 @@
 import React from "react";
 
 export default class TrueFalseComponent extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            true_false: {correct: false, incorrect: false},
-        }
-    }
     onChangeAnswer = (answer) => {
-        let true_false = this.state.true_false
-
-        if (answer) {
-            true_false.correct = true
-            true_false.incorrect = false
-        } else {
-            true_false.incorrect = true
-            true_false.correct = false
-        }
-
-        const {handleAnswerTrueFalse} = this.props
-
-        handleAnswerTrueFalse(answer)
+        const {handleAnswer} = this.props
+        handleAnswer(answer)
     }
 
     render() {
+        const {answer} = this.props
+
         return (
             <div className={'col-lg-12'}>
                 <table className={'table'}>
@@ -39,16 +23,18 @@ export default class TrueFalseComponent extends React.Component {
                         <td>True</td>
                         <td className={'text-right'}>
                             <input
-                                onChange={() => this.onChangeAnswer(true)}
-                                checked={this.state.true_false.correct} name="answer" type="radio"/>
+                                onChange={() => this.onChangeAnswer(1)}
+                                checked={answer === 1 ? 'checked' : ''}
+                                name="answer" type="radio"/>
                         </td>
                     </tr>
                     <tr>
                         <td>False</td>
                         <td className={'text-right'}>
                             <input
-                                onChange={() => this.onChangeAnswer(false)}
-                                value={this.state.true_false.incorrect} name="answer" type="radio"/>
+                                onChange={() => this.onChangeAnswer(0)}
+                                checked={answer === 1 ? '' : 'checked'}
+                                name="answer" type="radio"/>
                         </td>
                     </tr>
                     </tbody>

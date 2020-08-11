@@ -16,15 +16,22 @@ import {
     DELETE_QUESTION_ERROR,
 } from './actions';
 
-import {toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 
 const INIT_STATE = {
     questions: [],
-    question: {
-        id: 0,
-        title: null,
-        intro: null,
-        content: null
+    question: {},
+    true_false: {
+        replies: [1, 0],
+        answer: null
+    },
+    multi_choice: {
+        replies: ['', '', '', ''],
+        answer: null
+    },
+    multi_answer: {
+        replies: ['', '', '', ''],
+        answer: []
     },
     loading: true,
     error: '',

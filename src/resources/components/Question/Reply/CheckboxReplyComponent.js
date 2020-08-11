@@ -13,7 +13,7 @@ export default class CheckboxReplyComponent extends React.Component {
 
     render() {
         const {
-            index, item, onRemoveReply,
+            index, item, onRemove,
             handleReply, handleAnswer
         } = this.props
 
@@ -22,20 +22,18 @@ export default class CheckboxReplyComponent extends React.Component {
                 <ReactMde
                     onChange={(e) => handleReply(e, index)}
                     value={item.reply}
-                    // onChange={text => this.setState({question: text})}
                     selectedTab={this.state.tab}
                     onTabChange={text => this.setState({tab: text})}
                     generateMarkdownPreview={markdown =>
                         Promise.resolve(converter.makeHtml(markdown))
                     }
                 />
-                {/*<input onChange={(e) => handleReply(e.target.value, index)} value={item.reply} type="text" className={'form-control'}/>*/}
             </td>
             <td>
                 <input onChange={(e) => handleAnswer(index)} checked={item.answer} name="answer" type="checkbox"/>
             </td>
             <td className={'text-right'}>
-                <button onClick={() => onRemoveReply(index)} className={'btn btn-sm btn-danger'}>Remove</button>
+                <button onClick={() => onRemove(index)} className={'btn btn-sm btn-danger'}>Remove</button>
             </td>
         </tr>)
     }

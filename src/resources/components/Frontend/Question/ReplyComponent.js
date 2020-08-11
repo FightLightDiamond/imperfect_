@@ -2,6 +2,7 @@ import React from "react";
 import TrueFalseComponent from "./TrueFalseComponent";
 import MultipleChoiceComponent from "./MultipleChoiceComponent";
 import MultiAnswersComponent from "./MultiAnswersComponent";
+import {MULTI_CHOICE_TYPE, TRUE_FALSE_TYPE} from "../../../../config/Question";
 
 export default class ReplyComponent extends React.Component {
     render() {
@@ -10,9 +11,9 @@ export default class ReplyComponent extends React.Component {
         return (
             <div className={'col-lg-12'}>
                 <label>Reply</label>
-                {type == 1 ?
+                {type === TRUE_FALSE_TYPE ?
                 <TrueFalseComponent handleAnswer={handleAnswer} replies={replies}/>  :
-                type == 2 ?
+                type === MULTI_CHOICE_TYPE ?
                 <MultipleChoiceComponent handleAnswer={handleAnswer} replies={replies}/> :
                 <MultiAnswersComponent handleAnswer={handleAnswer} replies={replies}/>}
             </div>

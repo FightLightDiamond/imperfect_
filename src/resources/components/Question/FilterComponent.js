@@ -1,13 +1,11 @@
 import React from "react";
+import {QUESTION_TYPES_NAME} from "../../../config/Question";
 
 
 export default class FilterComponent extends React.Component {
     render() {
         const {
-            // type,
             time,
-            // status,
-            // level,
             handleType, handleTime, handleStatus, handleLevel
         } = this.props
 
@@ -16,11 +14,9 @@ export default class FilterComponent extends React.Component {
                 <div className={'col-lg-3 form-group'}>
                     <label htmlFor="">Type</label>
                     <select
-                        onChange={(e) => handleType(e.target.value)}
-                        className={'form-control'} id="">
-                        <option value="1">True False</option>
-                        <option value="2">Multiple Choice</option>
-                        <option value="3">Choose many answers</option>
+                        onChange={(e) => handleType(parseInt(e.target.value))}
+                        className={'form-control'} >
+                        {QUESTION_TYPES_NAME.map(item => <option key={item.id} value={item.id} >{item.name}</option>)}
                     </select>
                 </div>
                 <div className={'col-lg-3 form-group'}>
@@ -32,7 +28,7 @@ export default class FilterComponent extends React.Component {
                     <label htmlFor="">Status</label>
                     <select
                         onChange={(e) => handleStatus(e.target.value)}
-                        className={'form-control'} id="">
+                        className={'form-control'}>
                         <option value="1">Inactive</option>
                         <option value="2">Active</option>
                     </select>
@@ -41,7 +37,7 @@ export default class FilterComponent extends React.Component {
                     <label htmlFor="">Level</label>
                     <select
                         onChange={(e) => handleLevel(e.target.value)}
-                        className={'form-control'} id="">
+                        className={'form-control'}>
                         <option value="1">Newbie</option>
                         <option value="2">Middle</option>
                         <option value="3">Senior</option>

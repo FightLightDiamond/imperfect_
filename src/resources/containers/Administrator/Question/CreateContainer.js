@@ -7,35 +7,58 @@ import {converter} from "../../../../helpers/Markdown";
 import FilterComponent from "../../../components/Question/FilterComponent";
 import TrueFalseComponent from "../../../components/Question/TrueFalseComponent";
 import MultipleChoiceComponent from "../../../components/Question/MultipleChoiceComponent";
-import MultiAnswersComponent from "../../../components/Question/MultiAnswersComponent";
-import ReplyComponent from "../../../components/Frontend/Question/ReplyComponent";
+import uid from "uid";
+import {TRUE_FALSE_TYPE, MULTI_ANSWER_TYPE, MULTI_CHOICE_TYPE} from "../../../../config/Question";
 
 
 class CreateContainer extends React.Component {
-
     constructor(props) {
         super(props);
 
         this.state = {
-            type: 1,
+            type: TRUE_FALSE_TYPE,
             time: 15,
             status: 0,
             level: 1,
             question: '',
-            true_false: null,
-            multi_choice: [
-                {answer: false, reply: ''},
+            answer: null,
+            replies: [
+                {id: uid(), content: ''},
+                {id: uid(), content: ''},
+                {id: uid(), content: ''},
+                {id: uid(), content: ''},
             ],
-            multi_answer: [
-                {answer: false, reply: ''},
-            ]
+            answers: {
+                true_false: null,
+                multi_choice: 0,
+                multi_answer: [],
+            },
         }
     }
 
     handleType = (type) => {
-        this.setState({
-            ...this.state, type: type
-        })
+        switch (type) {
+            case TRUE_FALSE_TYPE:
+                this.setState({
+                    ...this.state, answer: this.state.answers.true_false,
+                    type: type
+                })
+                break
+            case MULTI_ANSWER_TYPE:
+                this.setState({
+                    ...this.state, answer: this.state.answers.multi_answer,
+                    type: type
+                })
+                break
+            case MULTI_CHOICE_TYPE:
+                this.setState({
+                    ...this.state, answer: this.state.answers.multi_choice,
+                    type: type
+                })
+                break
+            default:
+                throw new Error('Invalid type name: ')
+        }
     }
 
     handleTime = (time) => {
@@ -56,33 +79,71 @@ class CreateContainer extends React.Component {
         })
     }
 
-    handleAnswerTrueFalse = (true_false) => {
-        this.setState({
-            ...this.state, true_false: true_false
-        })
+    handleAnswer = answer => {
+        switch (this.state.type) {
+            case TRUE_FALSE_TYPE:
+                this.setState({
+                    ...this.state, answer: answer,
+                    answers: {...this.state.answers, true_false: answer}
+                })
+                break
+            case MULTI_ANSWER_TYPE:
+                this.setState({
+                    ...this.state, answer: answer,
+                    answers: {...this.state.answers, multi_answer: answer}
+                })
+                break
+            case MULTI_CHOICE_TYPE:
+                this.setState({
+                    ...this.state, answer: answer,
+                    answers: {...this.state.answers, multi_choice: answer}
+                })
+                break
+            default:
+                throw new Error('Invalid type name: ')
+        }
     }
 
-    handleMultiChoice = (multi_choice) => {
-        this.setState({
-            ...this.state, multi_choice: multi_choice
-        })
-    }
+    handleReplies = (replies, id = false) => {
+        let answer = this.state.answer;
+        let {true_false, multi_choice, multi_answer} = this.state.answers
 
-    handleMultiAnswer = (multi_answer) => {
-        this.setState({
-            ...this.state, multi_answer: multi_answer
-        })
+        if (id) {
+            if (id === true_false) {
+                answer = true_false = null
+            }
+
+            if (id === multi_choice) {
+                answer = multi_choice = 0
+            }
+
+            if (multi_answer.indexOf(id) !== -1) {
+                // eslint-disable-next-line array-callback-return
+                answer = multi_answer = multi_answer.filter(item => {
+                    if (item !== id) return item
+                });
+            }
+
+            this.setState({
+                ...this.state,
+                replies: replies,
+                answer: answer,
+                answers: {
+                    ...this.state.answers,
+                    true_false: true_false, multi_choice: multi_choice, multi_answer: multi_answer
+                }
+            })
+        } else {
+            this.setState({
+                ...this.state, replies: replies
+            })
+        }
     }
 
     render() {
         return (
             <div>
                 <h2>Question CreateView</h2>
-                {JSON.stringify(this.state)}
-
-                <ReplyComponent type={this.state.type} replies={this.state.type == 1
-                    ? this.state.true_false :
-                    (this.state.type == 2 ? this.state.multi_choice : this.state.multi_answer)}/>
 
                 <div className={'row'}>
                     <div className={'col-lg-12 form-group'}>
@@ -109,16 +170,19 @@ class CreateContainer extends React.Component {
 
                 <div className={'row'}>
                     {
-                        parseInt(this.state.type) === 1
+                        parseInt(this.state.type) === TRUE_FALSE_TYPE
                             ? <TrueFalseComponent
-                                handleAnswerTrueFalse={this.handleAnswerTrueFalse}
+                                answer={this.state.answer}
+                                handleReplies={this.handleReplies}
+                                handleAnswer={this.handleAnswer}
                             />
-                            : parseInt(this.state.type) === 2
-                            ? <MultipleChoiceComponent
-                                handleMultiChoice={this.handleMultiChoice}
-                            />
-                            : <MultiAnswersComponent
-                                handleMultiAnswer={this.handleMultiAnswer}
+                            :
+                            <MultipleChoiceComponent
+                                type={this.state.type}
+                                answer={this.state.answer}
+                                replies={this.state.replies}
+                                handleAnswer={this.handleAnswer}
+                                handleReplies={this.handleReplies}
                             />
                     }
                 </div>
@@ -134,19 +198,6 @@ class CreateContainer extends React.Component {
 
     onCreate = () => {
         const {createQuestionAction} = this.props
-        // type: 1,
-        //     time: 15,
-        //     status: 0,
-        //     level: 1,
-        //     question: '',
-        //     true_false: {},
-        // multi_choice: [
-        //     {answer: false, reply: ''},
-        // ],
-        //     multi_answer: [
-        //     {answer: false, reply: ''},
-        // ]
-
         const question = this.state;
 
         createQuestionAction(question);
