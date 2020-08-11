@@ -33,7 +33,7 @@ export default class TrueFalseComponent extends React.Component {
                         <td className={'text-right'}>
                             <input
                                 onChange={() => this.onChangeAnswer(0)}
-                                checked={answer === 1 ? '' : 'checked'}
+                                checked={answer === 0 ? 'checked' : ''}
                                 name="answer" type="radio"/>
                         </td>
                     </tr>

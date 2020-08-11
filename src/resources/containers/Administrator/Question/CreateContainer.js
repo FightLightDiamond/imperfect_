@@ -145,6 +145,7 @@ class CreateContainer extends React.Component {
             <div>
                 <h2>Question CreateView</h2>
 
+                {JSON.stringify(this.state)}
                 <div className={'row'}>
                     <div className={'col-lg-12 form-group'}>
                         <label htmlFor="">Question</label>
@@ -198,7 +199,19 @@ class CreateContainer extends React.Component {
 
     onCreate = () => {
         const {createQuestionAction} = this.props
-        const question = this.state;
+
+        let question = {
+            type: this.state.type,
+            time: this.state.time,
+            status: this.state.status,
+            level: this.state.level,
+            question: this.state.question,
+            answer: this.state.answer,
+        }
+
+        if(parseInt(this.state.type) !== TRUE_FALSE_TYPE) {
+            question.replies = this.state.replies
+        }
 
         createQuestionAction(question);
     }
