@@ -14,6 +14,9 @@ import {
     DELETE_QUESTION,
     DELETE_QUESTION_SUCCESS,
     DELETE_QUESTION_ERROR,
+    TEST_SINGLE,
+    TEST_SINGLE_ERROR,
+    TEST_SINGLE_SUCCESS
 } from './actions';
 
 import {toast} from 'react-toastify';
@@ -21,18 +24,6 @@ import {toast} from 'react-toastify';
 const INIT_STATE = {
     questions: [],
     question: {},
-    true_false: {
-        replies: [1, 0],
-        answer: null
-    },
-    multi_choice: {
-        replies: ['', '', '', ''],
-        answer: null
-    },
-    multi_answer: {
-        replies: ['', '', '', ''],
-        answer: []
-    },
     loading: true,
     error: '',
 };
@@ -93,12 +84,26 @@ export default (state = INIT_STATE, action) => {
             return {...state, question: action.payload.question, loading: false, error: ''}
 
         case DELETE_QUESTION:
-            return {...state, loading: true, error: ''};
+            return {...state, loading: true, error: ''}
         case DELETE_QUESTION_ERROR:
             toast(DELETE_QUESTION_ERROR)
             return {...state, loading: false, error: action.payload.error}
         case DELETE_QUESTION_SUCCESS:
             toast(DELETE_QUESTION_SUCCESS)
+            return {...state, loading: false, error: ''}
+        case TEST_SINGLE:
+            return {...state, loading: true, error: ''}
+        case TEST_SINGLE_ERROR:
+            toast.error(TEST_SINGLE_ERROR)
+            return {...state, loading: false, error: action.payload.error}
+        case TEST_SINGLE_SUCCESS:
+            console.log('TEST_SINGLE_SUCCESS', action.payload.result)
+            if( action.payload.result) {
+                toast.success('correct')
+            } else {
+                toast.error('Incorrect')
+            }
+
             return {...state, loading: false, error: ''}
 
         default:

@@ -12,7 +12,7 @@ export default class FilterComponent extends React.Component {
         return (
             <div className={'row'}>
                 <div className={'col-lg-3 form-group'}>
-                    <label htmlFor="">Type</label>
+                    <label >Type</label>
                     <select
                         onChange={(e) => handleType(parseInt(e.target.value))}
                         className={'form-control'} >
@@ -20,12 +20,12 @@ export default class FilterComponent extends React.Component {
                     </select>
                 </div>
                 <div className={'col-lg-3 form-group'}>
-                    <label htmlFor="">Time</label>
+                    <label >Time</label>
                     <input onChange={(e) => handleTime(e.target.value)}
                            value={time} className={'form-control'}/>
                 </div>
                 <div className={'col-lg-3 form-group'}>
-                    <label htmlFor="">Status</label>
+                    <label >Status</label>
                     <select
                         onChange={(e) => handleStatus(e.target.value)}
                         className={'form-control'}>
@@ -34,7 +34,7 @@ export default class FilterComponent extends React.Component {
                     </select>
                 </div>
                 <div className={'col-lg-3 form-group'}>
-                    <label htmlFor="">Level</label>
+                    <label >Level</label>
                     <select
                         onChange={(e) => handleLevel(e.target.value)}
                         className={'form-control'}>

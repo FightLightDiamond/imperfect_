@@ -148,7 +148,7 @@ class CreateContainer extends React.Component {
                 {JSON.stringify(this.state)}
                 <div className={'row'}>
                     <div className={'col-lg-12 form-group'}>
-                        <label htmlFor="">Question</label>
+                        <label >Question</label>
                         <ReactMde
                             value={this.state.question}
                             onChange={text => this.setState({question: text})}

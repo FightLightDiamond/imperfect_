@@ -13,7 +13,9 @@ export const UPDATE_QUESTION_SUCCESS = 'UPDATE_QUESTION_SUCCESS'
 export const DELETE_QUESTION = 'DELETE_QUESTION'
 export const DELETE_QUESTION_ERROR = 'DELETE_QUESTION_ERROR'
 export const DELETE_QUESTION_SUCCESS = 'DELETE_QUESTION_SUCCESS'
-
+export const TEST_SINGLE = 'TEST_SINGLE'
+export const TEST_SINGLE_ERROR = 'TEST_SINGLE_ERROR'
+export const TEST_SINGLE_SUCCESS = 'TEST_SINGLE_SUCCESS'
 
 export const getQuestionAction = (id) => ({
     type: GET_QUESTION,
@@ -88,4 +90,19 @@ export const destroyQuestionErrorAction = (error) => ({
 export const destroyQuestionSuccessAction = (question) => ({
     type: DELETE_QUESTION_SUCCESS,
     payload: {question}
+});
+
+export const testSingleAction = (id, answer) => ({
+    type: TEST_SINGLE,
+    payload: {id, answer}
+});
+
+export const testSingleErrorAction = (error) => ({
+    type: TEST_SINGLE_ERROR,
+    payload: {error}
+});
+
+export const testSingleSuccessAction = (result) => ({
+    type: TEST_SINGLE_SUCCESS,
+    payload: {result}
 });

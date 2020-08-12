@@ -23,7 +23,7 @@ export default class QuestionService extends BaseService {
         return await this.post(`/questions/${id}`, {_method: 'DELETE'})
     };
 
-    singleTest = async (id, params) => {
-        return await this.post(`/v1/single-test/${id}`, params)
+    testSingle = async (id, params) => {
+        return await this.post(`/single-test/${id}`, params)
     }
 }

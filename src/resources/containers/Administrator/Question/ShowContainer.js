@@ -2,7 +2,7 @@ import React from "react";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import {connect} from "react-redux";
 import {
-    getQuestionAction
+    getQuestionAction, testSingleAction
 } from "../../../../stores/redux/question/actions";
 import ReplyComponent from "../../../components/Frontend/Question/ReplyComponent";
 import Loading from "../../../components/common/Loading";
@@ -40,7 +40,7 @@ class ShowContainer extends React.Component {
                 { !loading ?
                     <div>
                         <div className={'col-lg-12'}>
-                            <label htmlFor="">Question</label>
+                            <label >Question</label>
                             <ReactMarkdown
                                 source={question.question}
                                 language={'php'}
@@ -52,7 +52,7 @@ class ShowContainer extends React.Component {
                                         type={question.type} replies={question.replies}/>
                         <div className={'col-lg-12'}>
                             <button onClick={() => {
-
+                                this.props.testSingleAction(id, this.state)
                             }} className={'btn btn-primary'}>Check</button>
                         </div>
                     </div>
@@ -70,6 +70,7 @@ const mapStateToProps = ({Question}) => {
 export default connect(
     mapStateToProps,
     {
-        getQuestionAction
+        getQuestionAction,
+        testSingleAction
     }
 )(ShowContainer);

@@ -12,6 +12,8 @@ import {
     updateQuestionErrorAction,
     destroyQuestionSuccessAction,
     destroyQuestionErrorAction,
+    testSingleErrorAction,
+    testSingleSuccessAction
 } from './actions';
 import FactoryService from "../../services/FactoryService";
 
@@ -78,7 +80,7 @@ function* update({payload}) {
         if (res.status === 200) {
             yield put(updateQuestionSuccessAction(res.data));
         } else {
-            yield put(updateQuestionErrorAction(res));
+            yield put(updateQuestionErrorAction(res.statusText));
         }
     } catch (error) {
         console.log(error)
@@ -99,4 +101,21 @@ function* destroy({payload}) {
     }
 }
 
-export {find, index, create, update, destroy}
+function* testSingle({payload}) {
+    const {id, answer} = payload;
+
+    try {
+        const res = yield call(FactoryService.request('QuestionService').testSingle, id, answer);
+        console.log('testSingle', res)
+        if (res.status === 200) {
+            yield put(testSingleSuccessAction(res.data));
+        } else {
+            yield put(testSingleErrorAction(res.statusText));
+        }
+    } catch (error) {
+        console.log(error)
+        yield put(testSingleErrorAction(error));
+    }
+}
+
+export {find, index, create, update, destroy, testSingle}
