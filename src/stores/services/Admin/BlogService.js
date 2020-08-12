@@ -2,26 +2,18 @@ import BaseService from '../BaseService'
 
 export default class BlogService extends BaseService {
   async index (params = {}) {
-    const res = await this.get(`/api/v1/admin/blogs`, params)
-
-    return res.data
+    return await this.get(`/admin/blogs`, params)
   }
 
   async create (params = {}) {
-    const res = await this.post(`/api/v1/admin/blogs`, params)
-
-    return res.data
+    return await this.post(`/admin/blogs`, params)
   }
 
   async update (id, params = {}) {
-    const res = await this.put(`/api/v1/admin/blogs/${id}`, params)
-
-    return res.data
+    return await this.put(`/admin/blogs/${id}`, params)
   }
 
   async show (id, params = {}) {
-    const res = await this.get(`/api/v1/admin/blogs/${id}`, params)
-
-    return res.data
+    return await this.get(`/admin/blogs/${id}`, params)
   }
 }

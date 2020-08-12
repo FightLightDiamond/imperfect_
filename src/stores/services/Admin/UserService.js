@@ -2,26 +2,18 @@ import BaseService from '../BaseService'
 
 export default class UserService extends BaseService {
   async index (params = {}) {
-    const res = await this.get(`/api/v1/admin/users`, params)
-
-    return res.data
+    return await this.get(`/admin/users`, params)
   }
 
   async create (params = {}) {
-    const res = await this.post(`/api/v1/admin/users`, params)
-
-    return res.data
+    return await this.post(`/admin/users`, params)
   }
 
   async update (id, params = {}) {
-    const res = await this.put(`/api/v1/admin/users/${id}`, params)
-
-    return res.data
+    return await this.put(`/admin/users/${id}`, params)
   }
 
   async show (id, params = {}) {
-    const res = await this.get(`/api/v1/admin/users/${id}`, params)
-
-    return res.data
+    return await this.get(`/admin/users/${id}`, params)
   }
 }

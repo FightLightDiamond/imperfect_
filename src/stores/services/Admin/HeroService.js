@@ -2,27 +2,22 @@ import BaseService from '../BaseService'
 
 export default class HeroService extends BaseService {
   async index (params = {}) {
-    const res = await this.get(`/api/v1/admin/heroes`, params)
-    return res
+    return await this.get(`/admin/heroes`, params)
   }
 
   async create (params = {}) {
-    const res = await this.post(`/api/v1/admin/heroes`, params)
-    return res
+    return await this.post(`/admin/heroes`, params)
   }
 
   async update (id, params = {}) {
-    const res = await this.post(`/api/v1/admin/heroes/${id}`, params)
-    return res
+    return await this.post(`/admin/heroes/${id}`, params)
   }
 
   async show (id, params = {}) {
-    const res = await this.get(`/api/v1/admin/heroes/${id}`, params)
-    return res
+    return await this.get(`/admin/heroes/${id}`, params)
   }
 
   async destroy (id) {
-    const res = await this.delete(`/api/v1/admin/heroes/${id}`)
-    return res
+    return await this.delete(`/admin/heroes/${id}`)
   }
 }

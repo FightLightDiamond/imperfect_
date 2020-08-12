@@ -1,5 +1,6 @@
 import React from "react";
 import CheckboxReplyComponent from "./Reply/CheckboxReplyComponent";
+import _ from "lodash";
 
 export default class MultiAnswersComponent extends React.Component {
     constructor(props) {
@@ -10,22 +11,10 @@ export default class MultiAnswersComponent extends React.Component {
         }
     }
 
-    componentDidMount() {
-        const {replies} = this.props
-        let answer = []
+    handleAnswer = (id) => {
+        let answer = this.state.answer
 
-        replies.map((item, index) => {
-            answer[index] = false
-        })
-
-        this.setState({
-            ...this.state, answer: answer
-        })
-    }
-
-    handleAnswer = (index) => {
-        let answer = this.state.answer;
-        answer[index] = !answer[index]
+        answer = _.xor(answer, [id])
 
         this.setState({
             ...this.state, answer: answer
@@ -38,17 +27,21 @@ export default class MultiAnswersComponent extends React.Component {
         const {replies} = this.props
 
         return (
-            <table className={'table'}>
-                <tbody>
-                {replies.map((item, index) => {
-                    return <CheckboxReplyComponent
-                        key={index}
-                        item={item} index={index}
-                        handleAnswer={this.handleAnswer}
-                    />
-                })}
-                </tbody>
-            </table>
+            <div>
+                {JSON.stringify(this.state.answer)}
+                <table className={'table'}>
+                    <tbody>
+                    {replies.map((item, index) => {
+                        return <CheckboxReplyComponent
+                            key={index}
+                            item={item} index={index}
+                            handleAnswer={this.handleAnswer}
+                        />
+                    })}
+                    </tbody>
+                </table>
+            </div>
+
         )
     }
 }

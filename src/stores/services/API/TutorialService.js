@@ -2,22 +2,22 @@ import BaseService from '../BaseService';
 
 export default class TutorialService extends BaseService {
     index = async (params = {}) => {
-        return await this.get(`/api/v1/tutorials`, params);
+        return await this.get(`/tutorials`, params);
     };
 
     create = async (params = {}) => {
-        return await this.post(`/api/v1/tutorials`, params);
+        return await this.post(`/tutorials`, params);
     };
 
     update = async (id, params = {}) => {
-        return await this.put(`/api/v1/tutorials/${id}`, params);
+        return await this.put(`/tutorials/${id}`, params);
     };
 
     show = async (id) => {
-        return await this.get(`/api/v1/tutorials/${id}`);
+        return await this.get(`/tutorials/${id}`);
     };
 
     destroy = async (id) => {
-        return await this.delete(`/api/v1/tutorials/${id}`);
+        return await this.delete(`/tutorials/${id}`);
     };
 }

@@ -50,6 +50,11 @@ class ShowContainer extends React.Component {
                         </div>
                         <ReplyComponent handleAnswer={this.handleAnswer}
                                         type={question.type} replies={question.replies}/>
+                        <div className={'col-lg-12'}>
+                            <button onClick={() => {
+
+                            }} className={'btn btn-primary'}>Check</button>
+                        </div>
                     </div>
                     : <Loading/> }
             </div>

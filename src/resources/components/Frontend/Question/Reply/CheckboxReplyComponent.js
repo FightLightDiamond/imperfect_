@@ -13,15 +13,15 @@ export default class CheckboxReplyComponent extends React.Component {
         return (<tr key={index}>
             <td>
                 <ReactMarkdown
-                    source={item.reply}
+                    source={item.content}
                     language={'php'}
                     renderers={{code: CodeBlock}}
                     escapeHtml={false}
                 />
             </td>
             <td className={'text-right'}>
-                <input onChange={() => handleAnswer(index)}
-                       // checked={item.answer}
+                <input onChange={() => handleAnswer(item.id)}
+                       checked={item.answer}
                        name="answer" type="checkbox"/>
             </td>
         </tr>)
