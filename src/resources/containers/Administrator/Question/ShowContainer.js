@@ -37,26 +37,35 @@ class ShowContainer extends React.Component {
         return (
             <div>
                 <h1>Show Question {id} {'' + this.state.answer}</h1>
-                { !loading ?
-                    <div>
-                        <div className={'col-lg-12'}>
-                            <label >Question</label>
-                            <ReactMarkdown
-                                source={question.question}
-                                language={'php'}
-                                renderers={{code: CodeBlock}}
-                                escapeHtml={false}
-                            />
+                {
+                    !loading
+                        ? <div>
+                            {
+                                question
+                                    ? 'Question không tồn tại'
+                                    : <div>
+                                        <div className={'col-lg-12'}>
+                                            <label>Question</label>
+                                            <ReactMarkdown
+                                                source={question.question}
+                                                language={'php'}
+                                                renderers={{code: CodeBlock}}
+                                                escapeHtml={false}
+                                            />
+                                        </div>
+                                        <ReplyComponent handleAnswer={this.handleAnswer}
+                                                        type={question.type} replies={question.replies}/>
+                                        <div className={'col-lg-12'}>
+                                            <button onClick={() => {
+                                                this.props.testSingleAction(id, this.state)
+                                            }} className={'btn btn-primary'}>Check
+                                            </button>
+                                        </div>
+                                    </div>
+                            }
                         </div>
-                        <ReplyComponent handleAnswer={this.handleAnswer}
-                                        type={question.type} replies={question.replies}/>
-                        <div className={'col-lg-12'}>
-                            <button onClick={() => {
-                                this.props.testSingleAction(id, this.state)
-                            }} className={'btn btn-primary'}>Check</button>
-                        </div>
-                    </div>
-                    : <Loading/> }
+                        : <Loading/>
+                }
             </div>
         );
     }

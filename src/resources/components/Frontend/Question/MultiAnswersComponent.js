@@ -28,7 +28,6 @@ export default class MultiAnswersComponent extends React.Component {
 
         return (
             <div>
-                {JSON.stringify(this.state.answer)}
                 <table className={'table'}>
                     <tbody>
                     {replies.map((item, index) => {

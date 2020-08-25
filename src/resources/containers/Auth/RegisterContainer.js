@@ -16,7 +16,6 @@ class RegisterContainer extends React.Component {
     onUserRegister() {
         if (this.state.email !== "" && this.state.password !== "") {
             const {registerUser, history} = this.props
-            alert(12)
             registerUser(this.state, history);
         }
     }

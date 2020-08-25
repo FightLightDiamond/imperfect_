@@ -6,6 +6,7 @@ import BlogService from './BlogService'
 import CourseService from './CourseService'
 import CrazyService from './CrazyService'
 import DashboardService from './DashboardService'
+import QuestionService from './QuestionService'
 import UserService from './UserService'
 import HeroService from './HeroService'
 
@@ -18,5 +19,6 @@ export default {
   CrazyService,
   DashboardService,
   HeroService,
+  QuestionService,
   UserService,
 }

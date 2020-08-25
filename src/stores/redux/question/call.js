@@ -58,7 +58,7 @@ function* create({payload}) {
     const {question} = payload;
 
     try {
-        const res = yield call(FactoryService.request('QuestionService').create, question);
+        const res = yield call(FactoryService.request('QuestionService', 'admin').create, question);
 
         if (res.status === 200) {
             yield put(createQuestionSuccessAction(res.data));
