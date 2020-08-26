@@ -5,10 +5,12 @@ import {Button, Spinner} from 'react-bootstrap'
 class ButtonLoading extends PureComponent {
 
     render() {
-        const {loading, title, color, event, size} = this.props
+        const {loading, title, color, event = () => {}, size} = this.props
 
         return (
-            <Button variant={color || 'primary'} onClick={() => event()} disabled={loading ? 'disable' : ''}>
+            <Button variant={color || 'primary'}
+                    onClick={() => event()}
+                    disabled={loading ? 'disable' : ''}>
                 {loading && <Spinner
                     as="span"
                     size={size || ""}

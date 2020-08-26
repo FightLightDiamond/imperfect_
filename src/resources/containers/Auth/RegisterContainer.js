@@ -1,55 +1,77 @@
 import React from "react";
-import {Form, Button} from "react-bootstrap";
 import {connect} from "react-redux";
 import {registerUser} from "../../../stores/redux/actions";
+import {ErrorMessage} from "@hookform/error-message";
+import Loading from "../../components/common/Loading";
+import {useForm} from "react-hook-form";
 
-class RegisterContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "demo@gogo.com",
-            password: "123456",
-            password_confirmation: "123456"
-        };
+const RegisterContainer = (props) => {
+    const {register, errors, watch, handleSubmit} = useForm()
+    const {loading, registerUser, history} = props
+
+    const onSubmit = (values) => {
+        registerUser(values, history);
     }
 
-    onUserRegister() {
-        if (this.state.email !== "" && this.state.password !== "") {
-            const {registerUser, history} = this.props
-            registerUser(this.state, history);
-        }
-    }
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                    name="email"
+                    placeholder="Enter email"
+                    className={`form-control ${errors.email ? "is-invalid" : ""}`}
+                    ref={register({
+                        required: "Email is required",
+                        pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                            message: "Invalid email address format"
+                        }
+                    })}
+                />
+                <ErrorMessage className="invalid-feedback" name="email" as="div" errors={errors}/>
+            </div>
 
-    render() {
-        return (
-            <Form>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" onChange={text => this.setState({email: text.target.value})}
-                                  value={this.state.email}/>
-                </Form.Group>
+            <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                    type='password'
+                    name="password"
+                    placeholder="Enter password"
+                    className={`form-control ${errors.password ? "is-invalid" : ""}`}
+                    ref={register({
+                        required: "Password is required",
+                        validate: value => value.length > 5 || value.length + "Password must be 6 characters at minimum"
+                    })}
+                />
+                <ErrorMessage className="invalid-feedback" name="password" as="div" errors={errors}/>
+            </div>
 
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control value={this.state.password} onChange={text => this.setState({password: text.target.value})} type="password"/>
-                </Form.Group>
+            <div className="form-group">
+                <label htmlFor="password_confirmation">Password confirmation</label>
+                <input
+                    type='password'
+                    name="password_confirmation"
+                    placeholder="Enter password"
+                    className={`form-control ${errors.password_confirmation ? "is-invalid" : ""}`}
+                    ref={register({
+                        required: "Password is required",
+                        validate: value => {
+                            if(value.length < 5)  return  value.length + "Password must be 6 characters at minimum"
+                            if(value !== watch('password')) return  'Password not same'
+                        },
+                    })}
+                />
+                <ErrorMessage className="invalid-feedback" name="password_confirmation" as="div" errors={errors}/>
+            </div>
 
-                <Form.Group controlId="formBasicPasswordConfirmation">
-                    <Form.Label>Password Confirmation</Form.Label>
-                    <Form.Control value={this.state.password_confirmation}
-                                  onChange={text => this.setState({password_confirmation: text.target.value})} type="password"/>
-                </Form.Group>
-
-                <Button
-                    color="primary"
-                    className="btn-shadow"
-                    onClick={() => this.onUserRegister()}
-                >
-                    Submit
-                </Button>
-            </Form>
-        );
-    }
+            {
+                loading
+                    ? <Loading/>
+                    : <button className="btn btn-primary btn-block" type="submit">Submit</button>
+            }
+        </form>
+    );
 }
 
 const mapStateToProps = ({authUser}) => {

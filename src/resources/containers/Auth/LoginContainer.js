@@ -1,61 +1,71 @@
 import React from "react";
 import {connect} from "react-redux";
 import {loginUser} from "../../../stores/redux/actions";
-import {Form} from "react-bootstrap";
-import ButtonLoading from "../../components/common/ButtonLoading";
+import {useForm} from "react-hook-form";
+import {ErrorMessage} from '@hookform/error-message';
+import Loading from "../../components/common/Loading";
 
-class LoginContainer extends React.Component {
+const LoginContainer = (props) => {
+    const {register, errors, handleSubmit} = useForm()
+    const {loading, loginUser, history} = props
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            email: "demo@gogo.com",
-            password: "gogo123"
-        };
+    const onSubmit = values => {
+        loginUser(values, history)
     }
 
-    onUserLogin = () => {
-        this.props.loginUser(this.state, this.props.history);
-    }
-
-    render() {
-        const {loading} = this.props
-
-        return (
-            <div>
-                Loading: {loading}
-                <Form>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email"
-                                      value={this.state.email}
-                                      onChange={text => this.setState({email: text.target.value})}
-                                      placeholder="Enter email"/>
-                    </Form.Group>
-
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password"
-                                      value={this.state.password}
-                                      onChange={text => this.setState({password: text.target.value})}
-                                      placeholder="Password"/>
-                    </Form.Group>
-
-                    <ButtonLoading
-                        loading={loading}
-                        event={this.onUserLogin}
-                        title={'Login'}/>
-
-                </Form>
+    return (
+        <div className="container">
+            <div className="row mb-5">
+                <div className="col-lg-12 text-center">
+                    <h1 className="mt-5">Login form with React Hook Form</h1>
+                </div>
             </div>
-        );
-    }
-}
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        name="email"
+                        value={'demo@gogo.com'}
+                        placeholder="Enter email"
+                        className={`form-control ${errors.email ? "is-invalid" : ""}`}
+                        ref={register({
+                            required: "Email is required",
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                message: "Invalid email address format"
+                            }
+                        })}
+                    />
+                    <ErrorMessage className="invalid-feedback" name="email" as="div" errors={errors}/>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type={'password'}
+                        name="password"
+                        placeholder="Enter password"
+                        className={`form-control ${errors.password ? "is-invalid" : ""}`}
+                        ref={register({
+                            required: "Password is required",
+                            validate: value => value.length > 5 || value.length + "Password must be 3 characters at minimum"
+                        })}
+                    />
+                    <ErrorMessage className="invalid-feedback" name="password" as="div" errors={errors}/>
+                </div>
+                {
+                    loading
+                        ? <Loading/>
+                        : <button className="btn btn-primary btn-block" type="submit">Submit</button>
+                }
+            </form>
+        </div>
+    );
+};
 
 const mapStateToProps = ({authUser}) => {
-    const {user, loading, error} = authUser;
-    return {user, loading, error};
+    const {loading, error} = authUser;
+    return {loading, error};
 };
 
 export default connect(
@@ -63,4 +73,4 @@ export default connect(
     {
         loginUser
     }
-)(LoginContainer);
+)(LoginContainer)
