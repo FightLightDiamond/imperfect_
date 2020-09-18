@@ -2,15 +2,14 @@ import React from "react";
 import CodeBlock from "../../../CodeBlock";
 import ReactMarkdown from "react-markdown/with-html";
 
-export default class CheckboxReplyComponent extends React.Component {
+const CheckboxReplyComponent = props => {
+    const {
+        index, item,
+        handleAnswer
+    } = props
 
-    render() {
-        const {
-            index, item,
-            handleAnswer
-        } = this.props
-
-        return (<tr key={index}>
+    return (
+        <tr key={index}>
             <td>
                 <ReactMarkdown
                     source={item.content}
@@ -24,6 +23,8 @@ export default class CheckboxReplyComponent extends React.Component {
                        checked={item.answer}
                        name="answer" type="checkbox"/>
             </td>
-        </tr>)
-    }
+        </tr>
+    )
 }
+
+export default CheckboxReplyComponent

@@ -1,7 +1,6 @@
 import {call, put} from 'redux-saga/effects';
 
 import {
-    getLessonsAction,
     getLessonErrorAction,
     getLessonSuccessAction,
     getLessonsErrorAction,
@@ -13,14 +12,17 @@ import {
     destroyLessonSuccessAction,
     destroyLessonErrorAction,
 } from './actions';
+
 import FactoryService from "../../services/FactoryService";
+import handleStatus from "../../../helpers/HandleStatus"
 
 function* index({payload}) {
-    console.log('payload', payload)
-    const {filter} = payload
+    const {filter, history} = payload
 
     try {
         const res = yield call(FactoryService.request('LessonService').index, filter);
+
+        handleStatus(res.status, history)
 
         if (res.status !== 200)
             yield put(getLessonsErrorAction(res.statusText))
@@ -28,19 +30,16 @@ function* index({payload}) {
             yield put(getLessonsSuccessAction(res.data));
 
     } catch (error) {
-        console.log('error', error)
         yield put(getLessonsErrorAction(error));
     }
 }
 
 function* find({payload}) {
-    console.log('payload', payload)
-
-    const {id} = payload;
+    const {id, history} = payload;
 
     try {
         const res = yield call(FactoryService.request('LessonService').show, id);
-        console.log('res show', res)
+        handleStatus(res.status, history)
 
         if (res.status !== 200)
             yield put(getLessonErrorAction(res.statusText))
@@ -48,16 +47,17 @@ function* find({payload}) {
             yield put(getLessonSuccessAction(res.data));
 
     } catch (error) {
-        console.log('error', error)
         yield put(getLessonSuccessAction(error));
     }
 }
 
 function* create({payload}) {
-    const {lesson} = payload;
+    const {lesson, history} = payload;
 
     try {
         const res = yield call(FactoryService.request('LessonService').create, lesson);
+
+        handleStatus(res.status, history)
 
         if (res.status === 200) {
             yield put(createLessonSuccessAction(res.data));
@@ -65,37 +65,40 @@ function* create({payload}) {
             yield put(createLessonErrorAction(res.statusText));
         }
     } catch (error) {
-        console.log('error', error)
         yield put(createLessonErrorAction(error));
     }
 }
 
 function* update({payload}) {
-    const {id, lesson} = payload;
+    const {id, lesson, history} = payload;
 
     try {
         const res = yield call(FactoryService.request('LessonService').update, id, lesson);
-        console.log('RES', res)
+        handleStatus(res.status, history)
+
         if (res.status === 200) {
             yield put(updateLessonSuccessAction(res.data));
         } else {
             yield put(updateLessonErrorAction(res));
         }
     } catch (error) {
-        console.log(error)
         yield put(updateLessonErrorAction(error));
     }
 }
 
 function* destroy({payload}) {
-    const {id} = payload;
+    const {id, history} = payload;
 
     try {
-        yield call(FactoryService.request('LessonService').destroy, id);
-        yield put(getLessonsAction());
-        yield put(destroyLessonSuccessAction());
+        const res = yield call(FactoryService.request('LessonService').destroy, id);
+        handleStatus(res.status, history)
+
+        if (res.status === 200) {
+            yield put(destroyLessonSuccessAction(res));
+        } else {
+            yield put(destroyLessonErrorAction(res.data));
+        }
     } catch (error) {
-        console.log(error)
         yield put(destroyLessonErrorAction(error));
     }
 }

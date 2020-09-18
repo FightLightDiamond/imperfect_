@@ -11,20 +11,20 @@ import UpdateQuestionView from "../../resources/views/Administrator/Question/Upd
 import QuestionView from "../../resources/views/Administrator/Question/ShowView";
 
 
-export default class AdminRouteGroup extends React.Component {
-    render() {
-        const {isAuthenticated} = this.props
+const AdminRouteGroup = props => {
+    const {isAuthenticated} = props
 
-        return (
-            <Switch>
-                <PrivateRoute isAuthenticated={isAuthenticated} path="/lessons" component={IndexLessonView}/>
-                <PrivateRoute isAuthenticated={isAuthenticated} path="/lesson-create" component={CreateLessonView}/>
-                <PrivateRoute isAuthenticated={isAuthenticated} path="/lesson-edit/:id" component={UpdateLessonView}/>
+    return (
+        <Switch>
+            <PrivateRoute isAuthenticated={isAuthenticated} path="/lessons" component={IndexLessonView}/>
+            <PrivateRoute isAuthenticated={isAuthenticated} path="/lesson-create" component={CreateLessonView}/>
+            <PrivateRoute isAuthenticated={isAuthenticated} path="/lesson-edit/:id" component={UpdateLessonView}/>
 
-                <PrivateRoute isAuthenticated={isAuthenticated} path="/question-create" component={CreateQuestionView}/>
-                <PrivateRoute isAuthenticated={isAuthenticated} path="/question-edit/:id" component={UpdateQuestionView}/>
-                <PrivateRoute isAuthenticated={isAuthenticated} path="/question/:id" component={QuestionView}/>
-            </Switch>
-        );
-    }
+            <PrivateRoute isAuthenticated={isAuthenticated} path="/question-create" component={CreateQuestionView}/>
+            <PrivateRoute isAuthenticated={isAuthenticated} path="/question-edit/:id" component={UpdateQuestionView}/>
+            <PrivateRoute isAuthenticated={isAuthenticated} path="/question/:id" component={QuestionView}/>
+        </Switch>
+    )
 }
+
+export default AdminRouteGroup

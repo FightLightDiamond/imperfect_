@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {getLessonsAction, destroyLessonAction} from "../../../../stores/redux/lesson/actions";
 import ReactPaginate from 'react-paginate';
@@ -7,30 +7,24 @@ import Loading from "../../../components/common/Loading";
 import ButtonLoading from "../../../components/common/ButtonLoading";
 
 
-class LessonsContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            pageSelected: 0
-        }
-    }
+const LessonsContainer = props => {
+    const [pageSelected, setPageSelected] = useState(0)
 
-    componentWillMount() {
-        const {getLessonsAction} = this.props
-        getLessonsAction({page: 1})
-    }
+    const {lessons, loading, getLessonsAction} = props
 
-    handlePageClick = (e) => {
-        const {getLessonsAction} = this.props
-        const selectedPage = e.selected;
-        this.setState({
-            selectedPage: selectedPage
-        })
-        getLessonsAction({page: selectedPage + 1})
+    useEffect(() => {
+        getLessonsAction({page: pageSelected + 1})
+    }, [])
 
+    useEffect(() => {
+        getLessonsAction({page: pageSelected + 1})
+    }, [pageSelected])
+
+    const handlePageClick = (e) => {
+        setPageSelected(e.selected)
     };
 
-    receivedData = (data) => {
+    const receivedData = (data) => {
         if (data)
             return data.map((item, key) =>
                 <tr key={key}>
@@ -42,8 +36,8 @@ class LessonsContainer extends React.Component {
                         <div className="btn-group btn-group-sm" role="group" aria-label="Basic example">
                             <Link to={"/lesson-edit/" + item.id} className={'btn btn-primary btn-sm'}>Edit</Link>
                             <ButtonLoading
-                                loading={this.props.loading}
-                                event={() => this.onDelete(item.id)}
+                                loading={props.loading}
+                                event={() => onDelete(item.id)}
                                 size={'sm'}
                                 color={'danger'}
                                 title={'Delete'}
@@ -53,63 +47,59 @@ class LessonsContainer extends React.Component {
                 </tr>)
     }
 
-    onDelete = id => {
+    const onDelete = id => {
         const ok = window.confirm('Are you sure?')
 
         if (ok) {
-            const {destroyLessonAction} = this.props
+            const {destroyLessonAction} = props
             destroyLessonAction(id)
 
             alert('Delete success')
         }
     }
 
-    render() {
-        const {lessons, loading} = this.props
-
-        return (
-            !loading ?
-                <div className={'container'}>
-                    <div className={'form-group'}>
-                        <Link to={"/lesson-create"} className={'btn btn-primary'}>Create</Link>
-                    </div>
-
-                    <table className={'table'}>
-                        <thead>
-                        <tr>
-                            <th>
-                                ID
-                            </th>
-                            <th>
-                                Title
-                            </th>
-                            <th></th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        {this.receivedData(lessons.data)}
-                        </tbody>
-
-                    </table>
-
-                    <ReactPaginate
-                        forcePage={this.state.selectedPage}
-                        previousLabel={"<<"}
-                        nextLabel={">>"}
-                        breakLabel={"..."}
-                        breakClassName={"break-me"}
-                        pageCount={lessons.last_page}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={this.handlePageClick}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
-                        activeClassName={"active"}/>
+    return (
+        !loading ?
+            <div className={'container'}>
+                <div className={'form-group'}>
+                    <Link to={"/lesson-create"} className={'btn btn-primary'}>Create</Link>
                 </div>
-                : <Loading/>
-        );
-    }
+
+                <table className={'table'}>
+                    <thead>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {receivedData(lessons.data)}
+                    </tbody>
+
+                </table>
+
+                <ReactPaginate
+                    forcePage={pageSelected}
+                    previousLabel={"<<"}
+                    nextLabel={">>"}
+                    breakLabel={"..."}
+                    breakClassName={"break-me"}
+                    pageCount={lessons.last_page}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageClick}
+                    containerClassName={"pagination"}
+                    subContainerClassName={"pages pagination"}
+                    activeClassName={"active"}/>
+            </div>
+            : <Loading/>
+    );
 }
 
 const mapStateToProps = ({Lesson}) => {

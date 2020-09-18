@@ -1,59 +1,38 @@
-import React from "react";
-import "react-mde/lib/styles/css/react-mde-all.css";
-import {connect} from "react-redux";
+import React, {useEffect, useState} from "react"
+import "react-mde/lib/styles/css/react-mde-all.css"
+import {connect} from "react-redux"
 import {
     getFileLessonAction,
     updateFileLessonAction,
     deleteFileLessonAction
-} from "../../../../stores/redux/file-lesson/actions";
-import {getLessonAction, updateLessonAction} from "../../../../stores/redux/lesson/actions";
-import Editor from "../../../components/Lesson/Editor";
-import Loading from "../../../components/common/Loading";
+} from "../../../../stores/redux/file-lesson/actions"
+import {getLessonAction, updateLessonAction} from "../../../../stores/redux/lesson/actions"
+import Editor from "../../../components/Lesson/Editor"
+import Loading from "../../../components/common/Loading"
 
-class CreateContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const CreateContainer = props => {
+    const {id, lesson, loading, history, getLessonAction, deleteFileLessonAction, updateLessonAction} = props
 
-        this.state = {
-            title: '',
-            intro: '',
-            content: '',
-            tab: "write",
-        };
-    }
+    useEffect(() => {
+        getLessonAction(id, history)
+    }, []);
 
-    componentDidMount() {
-        const {getLessonAction, id} = this.props
-        getLessonAction(id)
-    }
-
-    render() {
-        const {lesson, loading, deleteFileLessonAction, updateLessonAction} = this.props
-
-        return (
-            !loading ? <div>
-                <Editor
-                    lesson={lesson}
-                    updateLessonAction={updateLessonAction}
-                    deleteFileLessonAction={deleteFileLessonAction}
-                />
-            </div> : <Loading/>
-        );
-    }
-
-    onUpdate() {
-        const {updateLessonAction} = this.props
-        const {id} = this.props.lesson
-        const {title, intro, content} = this.state
-        updateLessonAction(id, {title, intro, content})
-    }
+    return (
+        !loading ? <div>
+            <Editor
+                lesson={lesson}
+                updateLessonAction={updateLessonAction}
+                deleteFileLessonAction={deleteFileLessonAction}
+            />
+        </div> : <Loading/>
+    )
 }
 
 const mapStateToProps = ({fileLesson, Lesson}) => {
-    const {lesson, loading, error} = Lesson;
+    const {lesson, loading, error} = Lesson
 
-    return {fileLesson, lesson, loading, error};
-};
+    return {fileLesson, lesson, loading, error}
+}
 
 export default connect(
     mapStateToProps,
@@ -61,4 +40,4 @@ export default connect(
         getLessonAction, updateLessonAction,
         getFileLessonAction, updateFileLessonAction, deleteFileLessonAction
     }
-)(CreateContainer);
+)(CreateContainer)

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import {connect} from "react-redux";
 import {
@@ -11,28 +11,24 @@ import Editor from "../../../components/Lesson/Editor";
 import Loading from "../../../components/common/Loading";
 
 
-class CreateContainer extends React.Component {
+const CreateContainer = (props) => {
+    const {
+        history, loading, createLessonAction,
+    } = props
 
-    componentDidMount() {
-        const {createLessonAction,} = this.props
-        createLessonAction({section_id: 1, title: 'a', intro: 'b'})
-    }
+    useEffect(() => {
+        createLessonAction({section_id: 1, title: 'a', intro: 'b'}, history)
+    }, [createLessonAction, history]);
 
-    render() {
-        const {lesson, deleteFileLessonAction, updateLessonAction, loading} = this.props
-
-        return (
-            !loading ?
-                <div>
-                    <Editor
-                        lesson={lesson}
-                        updateLessonAction={updateLessonAction}
-                        deleteFileLessonAction={deleteFileLessonAction}
-                    />
-                </div>
-                : <Loading/>
-        );
-    }
+    return (
+        !loading ?
+            <div>
+                <Editor
+                    {...props}
+                />
+            </div>
+            : <Loading/>
+    );
 }
 
 const mapStateToProps = ({fileLesson, Lesson}) => {

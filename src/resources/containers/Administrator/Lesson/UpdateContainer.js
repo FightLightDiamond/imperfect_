@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import {connect} from "react-redux";
 import {
@@ -10,47 +10,30 @@ import {getLessonAction, updateLessonAction} from "../../../../stores/redux/less
 import Editor from "../../../components/Lesson/Editor";
 import Loading from "../../../components/common/Loading";
 
-class CreateContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const CreateContainer = (props) => {
+    const {
+        id,
+        getLessonAction, updateLessonAction,
+        // getFileLessonAction, updateFileLessonAction,
+        deleteFileLessonAction,
+        loading,
+        lesson,
+        history,
+    } = props
 
-        this.state = {
-            title: '',
-            intro: '',
-            content: '',
-            tab: "write",
-        };
-    }
+    useEffect(() => {
+        getLessonAction(id, history)
+    }, [getLessonAction, id, history]);
 
-    componentDidMount() {
-        const {getLessonAction, id} = this.props
-        getLessonAction(id)
-
-        const {lesson} = this.props
-
-        console.log('render', lesson)
-    }
-
-    render() {
-        const {lesson, loading, deleteFileLessonAction, updateLessonAction} = this.props
-
-        return (
-            !loading ? <div>
-                <Editor
-                    lesson={lesson}
-                    updateLessonAction={updateLessonAction}
-                    deleteFileLessonAction={deleteFileLessonAction}
-                />
-            </div> : <Loading/>
-        );
-    }
-
-    onUpdate() {
-        const {updateLessonAction} = this.props
-        const {id} = this.props.lesson
-        const {title, intro, content} = this.state
-        updateLessonAction(id, {title, intro, content})
-    }
+    return (
+        !loading ? <div>
+            <Editor
+                lesson={lesson}
+                updateLessonAction={updateLessonAction}
+                deleteFileLessonAction={deleteFileLessonAction}
+            />
+        </div> : <Loading/>
+    );
 }
 
 const mapStateToProps = ({fileLesson, Lesson}) => {

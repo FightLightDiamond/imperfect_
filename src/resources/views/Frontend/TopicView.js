@@ -1,26 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 
 
-export default class TopicView extends React.Component {
-    constructor(props) {
-        super(props);
+const TopicView = props => {
+    const [text, setText] = useState(12)
 
-        this.state = {
-            text: 12,
-        }
-    }
-
-    render() {
-        return (
-            <div>
-                <h3>
-                    {this.props.match.params.topicId}
-                    <input
-                        onChange={(e) => this.setState({text: e.target.value})}
-                        value={this.state.text}
-                    />
-                </h3>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <h3>
+                {props.match.params.topicId}
+                <input
+                    onChange={e =>setText(e.target.value)}
+                    value={text}
+                />
+            </h3>
+        </div>
+    )
 }
+
+export default TopicView

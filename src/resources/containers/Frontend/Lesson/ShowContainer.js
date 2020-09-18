@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import ReactMarkdown from 'react-markdown/with-html'
 import CodeBlock from "../../../components/CodeBlock";
@@ -11,30 +11,17 @@ import {
 import {getLessonAction} from "../../../../stores/redux/lesson/actions";
 import Loading from "../../../components/common/Loading";
 
-class ShowContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const ShowContainer = props => {
+    const {id, lesson, loading, getLessonAction} = props
 
-        this.state = {
-            id: props.id,
-            title: '',
-            intro: '',
-            content: '',
-        };
-    }
+    useEffect(() => {
+        getLessonAction(id)
+    }, [getLessonAction, id])
 
-    componentDidMount() {
-        const {getLessonAction} = this.props
-        getLessonAction(this.state.id)
+    console.log('render componentDidMount', lesson)
 
-    }
-
-    render() {
-        const {lesson, loading} = this.props
-        console.log('render componentDidMount', lesson)
-
-        return (
-            !loading ? <div>
+    return (
+        !loading ? <div>
                 <h1>{lesson.title}</h1>
                 <ReactMarkdown
                     source={lesson.intro}
@@ -49,10 +36,8 @@ class ShowContainer extends React.Component {
                     escapeHtml={false}
                 />
             </div>
-                : <Loading/>
-        );
-    }
-
+            : <Loading/>
+    );
 }
 
 const mapStateToProps = ({Lesson}) => {

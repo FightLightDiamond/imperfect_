@@ -57,8 +57,8 @@ const RegisterContainer = (props) => {
                     ref={register({
                         required: "Password is required",
                         validate: value => {
-                            if(value.length < 5)  return  value.length + "Password must be 6 characters at minimum"
-                            if(value !== watch('password')) return  'Password not same'
+                            if (value.length < 5) return value.length + "Password must be 6 characters at minimum"
+                            if (value !== watch('password')) return 'Password not same'
                         },
                     })}
                 />

@@ -3,19 +3,15 @@ import Api from '../../config/Api'
 
 export default class BaseService {
     constructor(auth, domain = null) {
-        if (auth) {
-            this.setAuth(auth)
-        }
-
-        if (domain) {
-            this.setDomain(domain)
-        } else {
-            this.setDomain(Api.domain)
-        }
+        this.setAuth(auth)
+        this.setDomain(domain)
     }
 
-    setDomain = (domain) => {
-        this.domain = domain
+    setDomain = domain => {
+        if(domain)
+            this.domain = domain
+        else
+            this.domain = Api.domain
     }
 
     getDomain = () => {
@@ -26,10 +22,10 @@ export default class BaseService {
         return this.getDomain() + uri
     }
 
-    setAuth = (auth) => {
+    setAuth = auth => {
         if (this.isAuthenticated(auth)) {
             const token = this.getToken(auth)
-
+            console.log(auth, token)
             axios.interceptors.request.use(function (config) {
                 config.headers.Authorization = `Bearer ${token}`
                 return config
@@ -37,16 +33,17 @@ export default class BaseService {
         }
     }
 
-    isAuthenticated = (auth) => {
+    isAuthenticated = auth => {
         try {
             const loginInfo = JSON.parse(localStorage.getItem(auth))
             return !!loginInfo.access_token
         } catch (e) {
+            localStorage.removeItem(auth)
             return false
         }
     }
 
-    getToken = (auth) => {
+    getToken = auth => {
         const loginInfo = JSON.parse(localStorage.getItem(auth))
         return loginInfo.access_token
     }
@@ -60,7 +57,18 @@ export default class BaseService {
     post = async (uri, params = {}) => {
         return await axios.post(this.getUrl(uri), params)
             .then(authUser => authUser)
-            .catch(error => error)
+            .catch(error => {
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+
+                    return {status: error.response.status, message: error.response.data}
+
+                }
+                console.log(error)
+                return error
+            })
     }
 
     put = async (uri, params = {}) => {

@@ -3,13 +3,14 @@ import "react-mde/lib/styles/css/react-mde-all.css";
 import ShowContainer from "../../containers/Frontend/Lesson/ShowContainer";
 
 
-export default class LessonView extends React.Component {
+const LessonView = props => {
+    const {history} = props
 
-    render() {
-        return (
-            <div>
-                <ShowContainer id={this.props.match.params.id} />
-            </div>
-        );
-    }
+    return (
+        <div>
+            <ShowContainer history={history} id={props.match.params.id}/>
+        </div>
+    );
 }
+
+export default LessonView

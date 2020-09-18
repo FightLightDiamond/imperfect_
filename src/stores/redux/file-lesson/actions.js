@@ -6,14 +6,14 @@ export const DELETE_FILE_LESSON = 'DELETE_FILE_LESSON'
 export const DELETE_FILE_LESSON_ERROR = 'DELETE_FILE_LESSON_ERROR'
 export const DELETE_FILE_LESSON_SUCCESS = 'DELETE_FILE_LESSON_SUCCESS'
 
-export const getFileLessonAction = (files) => ({
+export const getFileLessonAction = (files, history) => ({
   type: GET_FILE_LESSON,
-  payload: {files}
+  payload: {files, history}
 });
 
-export const updateFileLessonAction = (id, file) => ({
+export const updateFileLessonAction = (id, file, history) => ({
   type: UPDATE_FILE_LESSON,
-  payload: { id, file }
+  payload: { id, file, history}
 });
 
 export const updateFileLessonErrorAction = (fileURL) => ({
@@ -26,9 +26,9 @@ export const updateFileLessonSuccessAction = (fileURL) => ({
   payload: {fileURL}
 });
 
-export const deleteFileLessonAction = (index) => ({
+export const deleteFileLessonAction = (index, history) => ({
   type: DELETE_FILE_LESSON,
-  payload: {index}
+  payload: {index, history}
 });
 
 export const deleteFileLessonErrorAction = (index) => ({

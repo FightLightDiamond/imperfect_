@@ -1,46 +1,34 @@
-import React from "react";
+import React, {useState} from "react";
 import CheckboxReplyComponent from "./Reply/CheckboxReplyComponent";
 import _ from "lodash";
 
-export default class MultiAnswersComponent extends React.Component {
-    constructor(props) {
-        super(props);
+const MultiAnswersComponent = props => {
+    const [answer, setAnswer] = useState([])
 
-        this.state = {
-            answer: []
-        }
+    const handleAnswer = (id) => {
+        const newAnswer = _.xor(answer, [id])
+        setAnswer(newAnswer)
+        props.handleAnswer(newAnswer)
     }
 
-    handleAnswer = (id) => {
-        let answer = this.state.answer
+    const {replies} = props
 
-        answer = _.xor(answer, [id])
+    return (
+        <div>
+            <table className={'table'}>
+                <tbody>
+                {replies.map((item, index) => {
+                    return <CheckboxReplyComponent
+                        key={index}
+                        item={item} index={index}
+                        handleAnswer={handleAnswer}
+                    />
+                })}
+                </tbody>
+            </table>
+        </div>
 
-        this.setState({
-            ...this.state, answer: answer
-        })
-
-        this.props.handleAnswer(answer)
-    }
-
-    render() {
-        const {replies} = this.props
-
-        return (
-            <div>
-                <table className={'table'}>
-                    <tbody>
-                    {replies.map((item, index) => {
-                        return <CheckboxReplyComponent
-                            key={index}
-                            item={item} index={index}
-                            handleAnswer={this.handleAnswer}
-                        />
-                    })}
-                    </tbody>
-                </table>
-            </div>
-
-        )
-    }
+    )
 }
+
+export default MultiAnswersComponent

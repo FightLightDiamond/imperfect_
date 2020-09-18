@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import ReactMde from "react-mde";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import {Form} from "react-bootstrap";
@@ -10,83 +10,69 @@ import {converter} from "../../../helpers/Markdown";
 toast.configure()
 
 
-export default class Editor extends React.Component {
-    constructor(props) {
-        super(props);
+const Editor = (props) => {
+    const [title, setTitle] = useState('')
+    const [intro, setIntro] = useState('')
+    const [content, setContent] = useState('')
+    const [tab, setTab] = useState('write')
 
-        this.state = {
-            title: '',
-            intro: '',
-            content: '',
-            tab: "write",
-        };
+    const {updateLessonAction, deleteFileLessonAction, lesson, history} = props
+
+    useEffect(() => {
+        setTitle(lesson.title)
+        setIntro(lesson.intro)
+        setContent(lesson.content)
+    }, [lesson]);
+
+    const onUpdate = () => {
+        updateLessonAction(lesson.id, {title, intro, content}, history)
     }
 
-    componentDidMount() {
-        const {lesson} = this.props
+    return (
+        <div>
+            <Form>
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Label>Title</Form.Label>
+                    <Form.Control
+                        value={title}
+                        onChange={text => setTitle(text.target.value)}
+                        placeholder="Enter title"/>
+                </Form.Group>
 
-        this.setState({
-            title: lesson.title,
-            intro: lesson.intro,
-            content: lesson.content,
-        })
-    }
+                <Form.Group controlId="formContent">
+                    <Form.Label>Introduce</Form.Label>
+                    <ReactMde
+                        value={intro}
+                        onChange={text => setIntro(text)}
+                        selectedTab={tab}
+                        onTabChange={text => setTab(text)}
+                        generateMarkdownPreview={markdown =>
+                            Promise.resolve(converter.makeHtml(markdown))
+                        }
+                    />
+                </Form.Group>
 
-    onUpdate() {
-        const {updateLessonAction} = this.props
-        const {id} = this.props.lesson
-        const {title, intro, content} = this.state
+                <Form.Group controlId="formContent">
+                    <Form.Label>Content</Form.Label>
+                    <ReactMde
+                        value={content}
+                        onChange={text => setContent(text)}
+                        selectedTab={tab}
+                        onTabChange={text => setTab(text)}
+                        generateMarkdownPreview={markdown =>
+                            Promise.resolve(converter.makeHtml(markdown))
+                        }
+                    />
+                </Form.Group>
+            </Form>
 
-        updateLessonAction(id, {title, intro, content})
-    }
+            <UploadFileComponent deleteFileLessonAction={deleteFileLessonAction}/>
 
-    render() {
-        const {deleteFileLessonAction} = this.props
-
-        return (
-            <div>
-                <Form>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Title</Form.Label>
-                        <Form.Control
-                            value={this.state.title}
-                            onChange={text => this.setState({title: text.target.value})}
-                            placeholder="Enter title"/>
-                    </Form.Group>
-
-                    <Form.Group controlId="formContent">
-                        <Form.Label>Introduce</Form.Label>
-                        <ReactMde
-                            value={this.state.intro}
-                            onChange={text => this.setState({intro: text})}
-                            selectedTab={this.state.tab}
-                            onTabChange={text => this.setState({tab: text})}
-                            generateMarkdownPreview={markdown =>
-                                Promise.resolve(converter.makeHtml(markdown))
-                            }
-                        />
-                    </Form.Group>
-
-                    <Form.Group controlId="formContent">
-                        <Form.Label>Content</Form.Label>
-                        <ReactMde
-                            value={this.state.content}
-                            onChange={text => this.setState({content: text})}
-                            selectedTab={this.state.tab}
-                            onTabChange={text => this.setState({tab: text})}
-                            generateMarkdownPreview={markdown =>
-                                Promise.resolve(converter.makeHtml(markdown))
-                            }
-                        />
-                    </Form.Group>
-                </Form>
-
-                <UploadFileComponent deleteFileLessonAction={deleteFileLessonAction}/>
-
-                <div className={'form-group'}>
-                    <button className={'btn btn-primary'} onClick={() => this.onUpdate()}>Save</button>
-                </div>
+            <div className={'form-group'}>
+                <button className={'btn btn-primary'} onClick={() => onUpdate()}>Save</button>
             </div>
-        );
-    }
+        </div>
+    );
 }
+
+export default Editor

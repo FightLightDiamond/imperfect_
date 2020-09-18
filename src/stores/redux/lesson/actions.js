@@ -15,14 +15,14 @@ export const DELETE_LESSON_ERROR = 'DELETE_LESSON_ERROR'
 export const DELETE_LESSON_SUCCESS = 'DELETE_LESSON_SUCCESS'
 
 
-export const getLessonAction = (id) => ({
+export const getLessonAction = (id, history) => ({
     type: GET_LESSON,
-    payload: {id}
+    payload: {id, history}
 });
 
-export const getLessonSuccessAction = (lesson) => ({
+export const getLessonSuccessAction = (lesson, history) => ({
     type: GET_LESSON_SUCCESS,
-    payload: {lesson}
+    payload: {lesson, history}
 });
 
 export const getLessonErrorAction = (error) => ({
@@ -30,9 +30,9 @@ export const getLessonErrorAction = (error) => ({
     payload: {error}
 });
 
-export const getLessonsAction = (filter) => ({
+export const getLessonsAction = (filter, history) => ({
     type: GET_LESSONS,
-    payload: {filter}
+    payload: {filter, history}
 });
 
 export const getLessonsSuccessAction = (lessons) => ({
@@ -45,9 +45,9 @@ export const getLessonsErrorAction = (error) => ({
     payload: {error}
 });
 
-export const createLessonAction = (lesson) => ({
+export const createLessonAction = (lesson, history) => ({
     type: CREATE_LESSON,
-    payload: {lesson}
+    payload: {lesson, history}
 });
 
 export const createLessonErrorAction = (lesson) => ({
@@ -60,9 +60,9 @@ export const createLessonSuccessAction = (lesson) => ({
     payload: {lesson}
 });
 
-export const updateLessonAction = (id, lesson) => ({
+export const updateLessonAction = (id, lesson, history) => ({
     type: UPDATE_LESSON,
-    payload: {id, lesson}
+    payload: {id, lesson, history}
 });
 
 export const updateLessonSuccessAction = (lesson) => ({
@@ -75,9 +75,9 @@ export const updateLessonErrorAction = (error) => ({
     payload: {error}
 });
 
-export const destroyLessonAction = (id) => ({
+export const destroyLessonAction = (id, history) => ({
     type: DELETE_LESSON,
-    payload: {id}
+    payload: {id, history}
 });
 
 export const destroyLessonErrorAction = (error) => ({

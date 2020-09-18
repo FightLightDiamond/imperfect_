@@ -1,19 +1,9 @@
-import React from "react";
-import LoginContainer from "../../containers/Auth/LoginContainer";
 import {connect} from "react-redux";
 import {logoutUser} from "../../../stores/redux/auth/actions";
 
-class LogoutView extends React.Component {
-    render() {
-        this.props.logoutUser('user')
-        this.props.history.push('/login')
-
-        return (
-            <div>
-                <LoginContainer history={this.props.history} />
-            </div>
-        );
-    }
+const LogoutView = props => {
+    props.logoutUser('user')
+    props.history.push('/login')
 }
 
 const mapStateToProps = ({authUser}) => {

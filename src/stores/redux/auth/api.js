@@ -8,10 +8,7 @@ const loginAsync = async (email, password) => {
 
     return await FactoryService.request('AuthService').login(auth)
         .then(authUser => authUser)
-        .catch(error => {
-            console.log(error)
-            return error
-        });
+        .catch(error => error);
 }
 
 const registerAsync = async (email, password, password_confirmation) =>
@@ -19,12 +16,14 @@ const registerAsync = async (email, password, password_confirmation) =>
         .then(authUser => authUser)
         .catch(error => error);
 
-const logoutAsync = async (history) => {
-    await FactoryService.request('AuthService').logout().then(authUser => authUser).catch(error => error);
+const logoutAsync = async history => {
+    await FactoryService.request('AuthService').logout()
+        .then(authUser => authUser)
+        .catch(error => error);
     history.push('/')
 }
 
-const forgotPasswordAsync = async (email) => {
+const forgotPasswordAsync = async email => {
     return await FactoryService.request('AuthService').forgot(email)
         .then(user => user)
         .catch(error => error);

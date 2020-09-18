@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import ReactMde from "react-mde";
 import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
@@ -11,32 +11,27 @@ const converter = new Showdown.Converter({
     tasklists: true
 });
 
-export default class QuizView extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            lesson: "**QuizView!!!**",
-            tab: "write" | "preview",
-        };
-    }
+const QuizView = props => {
+    const [lesson, setLesson] = useState("**QuizView!!!**")
+    const [tab, setTab] = useState( "write" | "preview")
 
-    render() {
-        return (
-            <div>
-                <ReactMarkdown
-                    source={this.state.lesson}
-                    escapeHtml={false}
-                />
-                <ReactMde
-                    value={this.state.lesson}
-                    onChange={text => this.setState({lesson: text})}
-                    selectedTab={this.state.tab}
-                    onTabChange={text => this.setState({tab: text})}
-                    generateMarkdownPreview={markdown =>
-                        Promise.resolve(converter.makeHtml(markdown))
-                    }
-                />
-            </div>
-        );
-    }
+    return (
+        <div>
+            <ReactMarkdown
+                source={lesson}
+                escapeHtml={false}
+            />
+            <ReactMde
+                value={lesson}
+                onChange={text => setLesson(text)}
+                selectedTab={tab}
+                onTabChange={text => setTab(text)}
+                generateMarkdownPreview={markdown =>
+                    Promise.resolve(converter.makeHtml(markdown))
+                }
+            />
+        </div>
+    );
 }
+
+export default QuizView

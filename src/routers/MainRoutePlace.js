@@ -6,23 +6,19 @@ import GuestRouteGroup from "./Group/GuestRouteGroup";
 import UserRouteGroup from "./Group/UserRouteGroup";
 import AdminRouteGroup from "./Group/AdminRouteGroup";
 
-export default class MainRoutePlace extends React.Component {
+const MainRoutePlace = props => {
+    return (
+        <div className="main-route-place">
+            <Route exact path="/" component={HomeView}/>
+            <Route path="/about" component={AboutView}/>
 
-    render() {
-        const {isAuthenticated} = this.props
-
-        return (
-            <div className="main-route-place">
-                <Route exact path="/" component={HomeView}/>
-                <Route path="/about" component={AboutView}/>
-
-                <GuestRouteGroup isAuthenticated={isAuthenticated}/>
-                <UserRouteGroup isAuthenticated={isAuthenticated}/>
-                <AdminRouteGroup isAuthenticated={isAuthenticated}/>
-                {/*<Route path='/404' component={My404View}/>*/}
-                {/*<Redirect from='*' to='/404'/>*/}
-
-            </div>
-        );
-    }
+            <GuestRouteGroup {...props}/>
+            <UserRouteGroup {...props}/>
+            <AdminRouteGroup {...props}/>
+            {/*<Route path='/404' component={My404View}/>*/}
+            {/*<Redirect from='*' to='/404'/>*/}
+        </div>
+    );
 }
+
+export default MainRoutePlace

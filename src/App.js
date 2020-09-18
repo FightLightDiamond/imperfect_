@@ -9,20 +9,19 @@ import {loginUser} from "./stores/redux/auth/actions";
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer} from "react-toastify";
 
-class App extends React.Component {
-    render() {
-      const {isAuthenticated} = this.props
-        return (
-            <BrowserRouter>
-                <NavbarTop isAuthenticated={isAuthenticated}/>
+const App = props => {
+    // const {isAuthenticated} = props
 
-                <Container style={{padding: "20px 0"}}>
-                    <MainRoutePlace isAuthenticated={isAuthenticated} />
-                </Container>
-                <ToastContainer />
-            </BrowserRouter>
-        );
-    }
+    return (
+        <BrowserRouter>
+            <NavbarTop {...props}/>
+
+            <Container style={{padding: "20px 0"}}>
+                <MainRoutePlace {...props}/>
+            </Container>
+            <ToastContainer/>
+        </BrowserRouter>
+    );
 }
 
 const mapStateToProps = ({authUser}) => {

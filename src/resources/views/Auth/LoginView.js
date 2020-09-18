@@ -1,18 +1,14 @@
 import React from "react";
 import LoginContainer from "../../containers/Auth/LoginContainer";
 
-export default class LoginView extends React.Component {
-    constructor(props) {
-        super(props)
+const LoginView = props => {
+    const {history} = props
 
-        if(props.isAuthenticated) props.history.push('/')
-    }
-
-    render() {
-        return (
-            <div>
-                <LoginContainer history={this.props.history} />
-            </div>
-        );
-    }
+    return (
+        <div>
+            <LoginContainer history={history}/>
+        </div>
+    );
 }
+
+export default LoginView
