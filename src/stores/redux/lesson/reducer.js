@@ -47,7 +47,7 @@ export default (state = INIT_STATE, action) => {
             // toast(GET_LESSONS_ERROR)
             return {...state, loading: false, error: action.payload.error}
         case GET_LESSONS_SUCCESS:
-            toast(GET_LESSONS_SUCCESS)
+            // toast(GET_LESSONS_SUCCESS)
             return {...state, lessons: action.payload.lessons, loading: false, error: ''}
 
         case CREATE_LESSON:

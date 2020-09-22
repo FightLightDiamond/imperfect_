@@ -16,7 +16,7 @@ import {
 import {checkAuthenticated, destroyAuth} from "../../../helpers/Authentication";
 
 const INIT_STATE = {
-    isAuthenticated: checkAuthenticated('user'),
+    isAuthenticated: checkAuthenticated('users'),
     user: null,
     forgotUserMail: '',
     newPassword: '',
@@ -60,7 +60,7 @@ export default (state = INIT_STATE, action) => {
             return {...state, loading: false, user: '', error: action.payload.error};
 
         case LOGOUT_USER:
-            destroyAuth('user')
+            destroyAuth('users')
             return {...state, user: null, isAuthenticated: false};
         default:
             return {...state};

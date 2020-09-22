@@ -14,11 +14,7 @@ const LessonsContainer = props => {
 
     useEffect(() => {
         getLessonsAction({page: pageSelected + 1})
-    }, [])
-
-    useEffect(() => {
-        getLessonsAction({page: pageSelected + 1})
-    }, [pageSelected])
+    }, [getLessonsAction, pageSelected])
 
     const handlePageClick = (e) => {
         setPageSelected(e.selected)

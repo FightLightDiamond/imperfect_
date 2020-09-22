@@ -9,20 +9,28 @@ import UpdateLessonView from "../../resources/views/Administrator/Lesson/UpdateV
 import CreateQuestionView from "../../resources/views/Administrator/Question/CreateView";
 import UpdateQuestionView from "../../resources/views/Administrator/Question/UpdateView";
 import QuestionView from "../../resources/views/Administrator/Question/ShowView";
+import {
+    ADMIN_LESSONS_PATH,
+    ADMIN_LESSONS_CREATE_PATH,
+    ADMIN_LESSONS_EDIT_PATH,
 
+    ADMIN_QUESTION_PATH,
+    ADMIN_QUESTION_CREATE_PATH,
+    ADMIN_QUESTION_EDIT_PATH
+} from '../RouteType/AdminRouteType'
 
 const AdminRouteGroup = props => {
     const {isAuthenticated} = props
 
     return (
         <Switch>
-            <PrivateRoute isAuthenticated={isAuthenticated} path="/lessons" component={IndexLessonView}/>
-            <PrivateRoute isAuthenticated={isAuthenticated} path="/lesson-create" component={CreateLessonView}/>
-            <PrivateRoute isAuthenticated={isAuthenticated} path="/lesson-edit/:id" component={UpdateLessonView}/>
+            <PrivateRoute isAuthenticated={isAuthenticated} path={ADMIN_LESSONS_PATH} component={IndexLessonView}/>
+            <PrivateRoute isAuthenticated={isAuthenticated} path={ADMIN_LESSONS_CREATE_PATH} component={CreateLessonView}/>
+            <PrivateRoute isAuthenticated={isAuthenticated} path={ADMIN_LESSONS_EDIT_PATH} component={UpdateLessonView}/>
 
-            <PrivateRoute isAuthenticated={isAuthenticated} path="/question-create" component={CreateQuestionView}/>
-            <PrivateRoute isAuthenticated={isAuthenticated} path="/question-edit/:id" component={UpdateQuestionView}/>
-            <PrivateRoute isAuthenticated={isAuthenticated} path="/question/:id" component={QuestionView}/>
+            <PrivateRoute isAuthenticated={isAuthenticated} path={ADMIN_QUESTION_CREATE_PATH} component={CreateQuestionView}/>
+            <PrivateRoute isAuthenticated={isAuthenticated} path={ADMIN_QUESTION_EDIT_PATH} component={UpdateQuestionView}/>
+            <PrivateRoute isAuthenticated={isAuthenticated} path={ADMIN_QUESTION_PATH} component={QuestionView}/>
         </Switch>
     )
 }

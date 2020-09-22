@@ -10,16 +10,16 @@ import {
 } from "./actions";
 
 function* login({payload}) {
-    const {email, password} = payload.user;
+    const {email, password, provider} = payload.user;
     const {history} = payload;
 
     try {
-        const loginUser = yield call(loginAsync, email, password);
+        const loginUser = yield call(loginAsync, email, password, provider);
         console.log('loginUser', loginUser.data);
 
         if (loginUser.data) {
             localStorage.setItem('user_id', loginUser.data.id);
-            localStorage.setItem('user', JSON.stringify(loginUser.data));
+            localStorage.setItem('users', JSON.stringify(loginUser.data));
             yield put(loginUserSuccess(loginUser.data));
             history.push('/');
         } else {
@@ -40,7 +40,7 @@ function* register({payload}) {
 
         if (registerUser.data) {
             localStorage.setItem('user_id', registerUser.data.id);
-            localStorage.setItem('user', JSON.stringify(registerUser.data));
+            localStorage.setItem('users', JSON.stringify(registerUser.data));
             yield put(registerUserSuccess(registerUser));
 
             history.push('/')

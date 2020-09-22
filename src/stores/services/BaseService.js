@@ -2,8 +2,8 @@ import axios from 'axios'
 import Api from '../../config/Api'
 
 export default class BaseService {
-    constructor(auth, domain = null) {
-        this.setAuth(auth)
+    constructor(provider, domain = null) {
+        this.setAuth(provider)
         this.setDomain(domain)
     }
 
@@ -22,10 +22,10 @@ export default class BaseService {
         return this.getDomain() + uri
     }
 
-    setAuth = auth => {
-        if (this.isAuthenticated(auth)) {
-            const token = this.getToken(auth)
-            console.log(auth, token)
+    setAuth = provider => {
+        if (this.isAuthenticated(provider)) {
+            const token = this.getToken(provider)
+            console.log(provider, token)
             axios.interceptors.request.use(function (config) {
                 config.headers.Authorization = `Bearer ${token}`
                 return config
@@ -33,18 +33,18 @@ export default class BaseService {
         }
     }
 
-    isAuthenticated = auth => {
+    isAuthenticated = provider => {
         try {
-            const loginInfo = JSON.parse(localStorage.getItem(auth))
+            const loginInfo = JSON.parse(localStorage.getItem(provider))
             return !!loginInfo.access_token
         } catch (e) {
-            localStorage.removeItem(auth)
+            localStorage.removeItem(provider)
             return false
         }
     }
 
-    getToken = auth => {
-        const loginInfo = JSON.parse(localStorage.getItem(auth))
+    getToken = provider => {
+        const loginInfo = JSON.parse(localStorage.getItem(provider))
         return loginInfo.access_token
     }
 

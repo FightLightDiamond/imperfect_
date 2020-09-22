@@ -15,7 +15,6 @@ const LessonsContainer = (props) => {
         getLessonsAction({page: pageSelected + 1}, history)
     }, [getLessonsAction, pageSelected, history]);
 
-
     const handlePageClick = (e) => {
         setPageSelected(e.selected)
     };

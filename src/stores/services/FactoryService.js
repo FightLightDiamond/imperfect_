@@ -2,18 +2,18 @@ import adminService from './Admin/IndexService'
 import userService from './API/IndexService'
 
 const requestMap = {
-  user: userService,
+  users: userService,
   admin: adminService,
 }
 
 export default class FactoryService {
-  static request (classname, auth = 'user', domain = null) {
-    let RequestClass = requestMap[auth][classname]
+  static request (classname, provider = 'users', domain = null) {
+    let RequestClass = requestMap[provider][classname]
 
     if (!RequestClass) {
       throw new Error('Invalid request class name: ' + classname)
     }
 
-    return new RequestClass(auth, domain = null)
+    return new RequestClass(provider, domain = null)
   }
 }

@@ -6,7 +6,7 @@ const handleStatus = (status, history) => {
     console.log(status, history)
     switch (status) {
         case 401:
-            localStorage.removeItem('user')
+            localStorage.removeItem('users')
             put(logoutUser(history))
             history.push('/login')
 

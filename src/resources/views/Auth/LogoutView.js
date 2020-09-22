@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import {logoutUser} from "../../../stores/redux/auth/actions";
 
 const LogoutView = props => {
-    props.logoutUser('user')
+    props.logoutUser('users')
     props.history.push('/login')
 }
 

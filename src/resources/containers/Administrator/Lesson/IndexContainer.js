@@ -13,12 +13,7 @@ const IndexContainer = (props) => {
 
     useEffect(() => {
         getLessonsAction({page: pageSelected + 1}, history)
-    }, []);
-
-    useEffect(() => {
-        getLessonsAction({page: pageSelected + 1, history})
-    }, [pageSelected]);
-
+    }, [getLessonsAction, pageSelected, history]);
 
     const handlePageClick = (e) => {
         setPageSelected(e.selected);

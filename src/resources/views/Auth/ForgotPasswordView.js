@@ -3,7 +3,7 @@ import {checkAuthenticated} from "../../../helpers/Authentication";
 
 const ForgotPasswordView = (props) => {
     useEffect(() => {
-        if (checkAuthenticated('user')) props.history.push('/')
+        if (checkAuthenticated('users')) props.history.push('/')
     }, [props.history])
 
     return (
