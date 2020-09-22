@@ -16,16 +16,16 @@ import {
 } from '../RouteType/UserRouteType'
 
 const UserRouteGroup = props => {
-    const {isAuthenticated} = props
+    const {isUser} = props
     return (
         <Switch>
-            <PrivateRoute isAuthenticated={isAuthenticated} path={LESSON_PATH} component={LessonView}/>
-            {/*<PrivateRoute isAuthenticated={isAuthenticated} path="/lessons" component={LessonsView}/>*/}
-            <PrivateRoute isAuthenticated={isAuthenticated} path={QUIZ_PATH} component={QuizView}/>
-            <PrivateRoute isAuthenticated={isAuthenticated} path={TOPICS_PATH} component={TopicsView}/>
-            <PrivateRoute isAuthenticated={isAuthenticated} path={TEST_PATH} component={TestView}/>
+            <PrivateRoute isUser={isUser} path={LESSON_PATH} component={LessonView}/>
+            {/*<PrivateRoute isUser={isUser} path="/lessons" component={LessonsView}/>*/}
+            <PrivateRoute isUser={isUser} path={QUIZ_PATH} component={QuizView}/>
+            <PrivateRoute isUser={isUser} path={TOPICS_PATH} component={TopicsView}/>
+            <PrivateRoute isUser={isUser} path={TEST_PATH} component={TestView}/>
 
-            <PrivateRoute isAuthenticated={isAuthenticated} path={LOGOUT_PATH} component={LogoutView}/>
+            <PrivateRoute isUser={isUser} path={LOGOUT_PATH} component={LogoutView}/>
         </Switch>
     );
 }

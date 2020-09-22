@@ -15,6 +15,7 @@ const checkAuthenticated = (auth) => {
 
 const getToken = (auth) => {
     const authInfo = getAuthInfo(auth)
+
     return authInfo.access_token
 }
 

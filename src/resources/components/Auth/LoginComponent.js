@@ -11,6 +11,9 @@ const LoginComponent = (props) => {
     // alert(provider)
 
     const onSubmit = values => {
+        values.provider = provider
+        console.log('provider', provider)
+        console.log('values', values)
         loginUser(values, history)
     }
 

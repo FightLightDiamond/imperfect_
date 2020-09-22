@@ -1,3 +1,5 @@
+const ADMIN_LOGIN_TYPE = '/admin/login'
+
 const ADMIN_LESSONS_PATH = '/admin/lessons'
 const ADMIN_LESSON_PATH = '/admin/lesson/:id'
 const ADMIN_LESSONS_CREATE_PATH = '/admin/lesson-create'

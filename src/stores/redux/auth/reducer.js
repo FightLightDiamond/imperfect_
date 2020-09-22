@@ -2,6 +2,8 @@ import {
     LOGIN_USER,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_ERROR,
+    LOGIN_ADMIN_SUCCESS,
+    LOGIN_ADMIN_ERROR,
     REGISTER_USER,
     REGISTER_USER_SUCCESS,
     REGISTER_USER_ERROR,
@@ -16,8 +18,10 @@ import {
 import {checkAuthenticated, destroyAuth} from "../../../helpers/Authentication";
 
 const INIT_STATE = {
-    isAuthenticated: checkAuthenticated('users'),
+    isUser: checkAuthenticated('users'),
+    isAdmin: checkAuthenticated('admin'),
     user: null,
+    admin: null,
     forgotUserMail: '',
     newPassword: '',
     resetPasswordCode: '',
@@ -31,10 +35,16 @@ export default (state = INIT_STATE, action) => {
             return {...state, loading: true, error: ''};
         case LOGIN_USER_SUCCESS:
             alert(LOGIN_USER_SUCCESS)
-            return {...state, loading: false, user: action.payload.user, error: '', isAuthenticated: true};
+            return {...state, loading: false, user: action.payload.user, error: '', isUser: true};
         case LOGIN_USER_ERROR:
             alert(LOGIN_USER_ERROR)
-            return {...state, loading: false, user: '', error: action.payload.error};
+            return {...state, loading: false, user: '', isUser: false, error: action.payload.error};
+        case LOGIN_ADMIN_SUCCESS:
+            alert(LOGIN_ADMIN_SUCCESS)
+            return {...state, loading: false, admin: action.payload.user, error: '', isAdmin: true};
+        case LOGIN_ADMIN_ERROR:
+            alert(LOGIN_ADMIN_ERROR)
+            return {...state, loading: false, admin: '', isAdmin: false, error: action.payload.error};
 
         case FORGOT_PASSWORD:
             return {...state, loading: true, error: ''};
@@ -54,14 +64,14 @@ export default (state = INIT_STATE, action) => {
             return { ...state, loading: true, error: '' };
         case REGISTER_USER_SUCCESS:
             alert('REGISTER_USER_SUCCESS')
-            return {...state, loading: false, user: action.payload.user, error: '', isAuthenticated: true};
+            return {...state, loading: false, user: action.payload.user, error: '', isUser: true};
         case REGISTER_USER_ERROR:
             alert('REGISTER_USER_ERROR')
             return {...state, loading: false, user: '', error: action.payload.error};
 
         case LOGOUT_USER:
             destroyAuth('users')
-            return {...state, user: null, isAuthenticated: false};
+            return {...state, user: null, isUser: false};
         default:
             return {...state};
     }

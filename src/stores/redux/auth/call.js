@@ -4,30 +4,47 @@ import {
     forgotPasswordError,
     forgotPasswordSuccess,
     loginUserError,
+    loginAdminError,
     loginUserSuccess,
+    loginAdminSuccess,
     registerUserError,
     registerUserSuccess, resetPasswordError, resetPasswordSuccess
 } from "./actions";
+import Auth from "../../../config/Auth";
 
 function* login({payload}) {
     const {email, password, provider} = payload.user;
     const {history} = payload;
 
-    try {
-        const loginUser = yield call(loginAsync, email, password, provider);
-        console.log('loginUser', loginUser.data);
+    let putSuccess = null
+    let putError = null
 
-        if (loginUser.data) {
-            localStorage.setItem('user_id', loginUser.data.id);
-            localStorage.setItem('users', JSON.stringify(loginUser.data));
-            yield put(loginUserSuccess(loginUser.data));
+    alert(provider + '--' + Auth.USER_PROVIDER)
+    if (provider === Auth.USER_PROVIDER) {
+        putSuccess = loginUserSuccess
+        putError = loginUserError
+    } else {
+        putSuccess = loginAdminSuccess
+        putError = loginAdminError
+    }
+
+    try {
+        const loginData = yield call(loginAsync, email, password, provider);
+        const {data} = loginData
+        console.log('loginUser', data);
+
+        if (data) {
+            localStorage.setItem(provider + '_id', data.id);
+            localStorage.setItem(provider, JSON.stringify(data));
+
+            yield put(putSuccess(data));
             history.push('/');
         } else {
-            yield put(loginUserError(loginUser.message));
+            yield put(putError(loginData.message));
         }
     } catch (error) {
         console.log(error)
-        yield put(loginUserError(error));
+        yield put(putError(error));
     }
 }
 

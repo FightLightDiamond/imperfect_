@@ -20,17 +20,17 @@ import {
 } from '../RouteType/AdminRouteType'
 
 const AdminRouteGroup = props => {
-    const {isAuthenticated} = props
+    const {isUser} = props
 
     return (
         <Switch>
-            <PrivateRoute isAuthenticated={isAuthenticated} path={ADMIN_LESSONS_PATH} component={IndexLessonView}/>
-            <PrivateRoute isAuthenticated={isAuthenticated} path={ADMIN_LESSONS_CREATE_PATH} component={CreateLessonView}/>
-            <PrivateRoute isAuthenticated={isAuthenticated} path={ADMIN_LESSONS_EDIT_PATH} component={UpdateLessonView}/>
+            <PrivateRoute isUser={isUser} path={ADMIN_LESSONS_PATH} component={IndexLessonView}/>
+            <PrivateRoute isUser={isUser} path={ADMIN_LESSONS_CREATE_PATH} component={CreateLessonView}/>
+            <PrivateRoute isUser={isUser} path={ADMIN_LESSONS_EDIT_PATH} component={UpdateLessonView}/>
 
-            <PrivateRoute isAuthenticated={isAuthenticated} path={ADMIN_QUESTION_CREATE_PATH} component={CreateQuestionView}/>
-            <PrivateRoute isAuthenticated={isAuthenticated} path={ADMIN_QUESTION_EDIT_PATH} component={UpdateQuestionView}/>
-            <PrivateRoute isAuthenticated={isAuthenticated} path={ADMIN_QUESTION_PATH} component={QuestionView}/>
+            <PrivateRoute isUser={isUser} path={ADMIN_QUESTION_CREATE_PATH} component={CreateQuestionView}/>
+            <PrivateRoute isUser={isUser} path={ADMIN_QUESTION_EDIT_PATH} component={UpdateQuestionView}/>
+            <PrivateRoute isUser={isUser} path={ADMIN_QUESTION_PATH} component={QuestionView}/>
         </Switch>
     )
 }

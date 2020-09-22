@@ -14,14 +14,14 @@ import {
 } from '../RouteType/GuestRouteType'
 
 const GuestRouteGroup = props => {
-    const {isAuthenticated} = props
+    const {isUser} = props
 
     return (
         <Switch>
-            <GuestRoute isAuthenticated={isAuthenticated} path={LOGIN_PATH} component={LoginView}/>
-            <GuestRoute isAuthenticated={isAuthenticated} path={FORGOT_PATH} component={ForgotPasswordView}/>
-            <GuestRoute isAuthenticated={isAuthenticated} path={REGISTER_PATH} component={RegisterView}/>
-            <GuestRoute isAuthenticated={isAuthenticated} path={REST_PATH} component={ResetPasswordView}/>
+            <GuestRoute isUser={isUser} path={LOGIN_PATH} component={LoginView}/>
+            <GuestRoute isUser={isUser} path={FORGOT_PATH} component={ForgotPasswordView}/>
+            <GuestRoute isUser={isUser} path={REGISTER_PATH} component={RegisterView}/>
+            <GuestRoute isUser={isUser} path={REST_PATH} component={ResetPasswordView}/>
         </Switch>
     );
 }

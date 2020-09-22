@@ -4,6 +4,10 @@ import {logoutUser} from "../../../stores/redux/auth/actions";
 const LogoutView = props => {
     props.logoutUser('users')
     props.history.push('/login')
+
+    return {
+
+    }
 }
 
 const mapStateToProps = ({authUser}) => {

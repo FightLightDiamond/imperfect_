@@ -11,7 +11,7 @@ import {ToastContainer} from "react-toastify";
 
 const App = props => {
     console.log(props)
-    // const {isAuthenticated} = props
+    // const {isUser} = props
 
     return (
         <BrowserRouter>
@@ -26,8 +26,8 @@ const App = props => {
 }
 
 const mapStateToProps = ({authUser}) => {
-    const {isAuthenticated} = authUser;
-    return {isAuthenticated};
+    const {isUser} = authUser;
+    return {isUser};
 };
 
 export default connect(

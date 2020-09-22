@@ -23,7 +23,7 @@ export default class BaseService {
     }
 
     setAuth = provider => {
-        if (this.isAuthenticated(provider)) {
+        if (this.isUser(provider)) {
             const token = this.getToken(provider)
             console.log(provider, token)
             axios.interceptors.request.use(function (config) {
@@ -33,7 +33,7 @@ export default class BaseService {
         }
     }
 
-    isAuthenticated = provider => {
+    isUser = provider => {
         try {
             const loginInfo = JSON.parse(localStorage.getItem(provider))
             return !!loginInfo.access_token

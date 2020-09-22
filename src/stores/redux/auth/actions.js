@@ -11,7 +11,7 @@ import {
   FORGOT_PASSWORD_ERROR,
   RESET_PASSWORD,
   RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_ERROR
+  RESET_PASSWORD_ERROR, LOGIN_ADMIN_SUCCESS, LOGIN_ADMIN_ERROR
 } from '../actions';
 
 export const loginUser = (user, history) => ({
@@ -26,6 +26,16 @@ export const loginUserSuccess = (user) => ({
 
 export const loginUserError = (message) => ({
   type: LOGIN_USER_ERROR,
+  payload: { message }
+});
+
+export const loginAdminSuccess = (admin) => ({
+  type: LOGIN_ADMIN_SUCCESS,
+  payload: admin
+});
+
+export const loginAdminError = (message) => ({
+  type: LOGIN_ADMIN_ERROR,
   payload: { message }
 });
 

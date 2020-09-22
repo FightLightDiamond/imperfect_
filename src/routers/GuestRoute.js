@@ -3,10 +3,10 @@ import {Route, Redirect} from "react-router-dom";
 
 const GuestRoute = props => {
 
-    const {isAuthenticated} = props
+    const {isUser} = props
 
     return (
-        !isAuthenticated ? <Route {...props} /> : <Redirect to="/"/>
+        !isUser ? <Route {...props} /> : <Redirect to="/"/>
     )
 }
 
