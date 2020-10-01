@@ -16,10 +16,10 @@ import {
     RESET_PASSWORD_ERROR
 } from '../actions';
 import {checkAuthenticated, destroyAuth} from "../../../helpers/Authentication";
-
+import Auth from "../../../config/Auth";
 const INIT_STATE = {
-    isUser: checkAuthenticated('users'),
-    isAdmin: checkAuthenticated('admin'),
+    isUser: checkAuthenticated(Auth.USER_PROVIDER),
+    isAdmin: checkAuthenticated(Auth.ADMIN_PROVIDER),
     user: null,
     admin: null,
     forgotUserMail: '',

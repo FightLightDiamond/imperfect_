@@ -5,6 +5,7 @@ import "react-mde/lib/styles/css/react-mde-all.css";
 import ReactMarkdown from 'react-markdown/with-html'
 import Dropzone from 'react-dropzone'
 import CodeBlock from "../../components/CodeBlock";
+import Layout from "../../components/layout/Frontend/Layout";
 
 const converter = new Showdown.Converter({
     tables: true,
@@ -44,7 +45,7 @@ const TestView = props => {
     };
 
     return (
-        <div>
+        <Layout>
             <ReactMarkdown
                 source={content}
                 language={'php'}
@@ -99,7 +100,7 @@ const TestView = props => {
                 <h4>Files</h4>
                 <ul>{files}</ul>
             </aside>
-        </div>
+        </Layout>
     );
 }
 

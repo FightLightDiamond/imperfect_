@@ -19,13 +19,13 @@ const UserRouteGroup = props => {
     const {isUser} = props
     return (
         <Switch>
-            <PrivateRoute isUser={isUser} path={LESSON_PATH} component={LessonView}/>
-            {/*<PrivateRoute isUser={isUser} path="/lessons" component={LessonsView}/>*/}
-            <PrivateRoute isUser={isUser} path={QUIZ_PATH} component={QuizView}/>
-            <PrivateRoute isUser={isUser} path={TOPICS_PATH} component={TopicsView}/>
-            <PrivateRoute isUser={isUser} path={TEST_PATH} component={TestView}/>
+            <PrivateRoute isAuthenticated={isUser} path={LESSON_PATH} component={LessonView}/>
+            {/*<PrivateRoute isAuthenticated{isUser} path="/lessons" component={LessonsView}/>*/}
+            <PrivateRoute isAuthenticated={isUser} path={QUIZ_PATH} component={QuizView}/>
+            <PrivateRoute isAuthenticated={isUser} path={TOPICS_PATH} component={TopicsView}/>
+            <PrivateRoute isAuthenticated={isUser} path={TEST_PATH} component={TestView}/>
 
-            <PrivateRoute isUser={isUser} path={LOGOUT_PATH} component={LogoutView}/>
+            <PrivateRoute isAuthenticated={isUser} path={LOGOUT_PATH} component={LogoutView}/>
         </Switch>
     );
 }

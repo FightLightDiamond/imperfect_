@@ -1,10 +1,11 @@
 import React from "react";
 import {Route, Link} from 'react-router-dom'
 import TopicView from "./TopicView";
+import Layout from "../../components/layout/Frontend/Layout";
 
 const TopicViews = props => {
     return (
-        <div>
+        <Layout>
             <h2>Topics</h2>
             <ul>
                 <li>
@@ -43,7 +44,7 @@ const TopicViews = props => {
                     }
                 />
             </div>
-        </div>
+        </Layout>
     );
 }
 

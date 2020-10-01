@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import {checkAuthenticated} from "../../../helpers/Authentication";
+import Layout from "../../components/layout/Frontend/Layout";
 
 const ForgotPasswordView = (props) => {
     useEffect(() => {
@@ -7,9 +8,9 @@ const ForgotPasswordView = (props) => {
     }, [props.history])
 
     return (
-        <div>
+        <Layout>
             <h2>ForgotPasswordView</h2>
-        </div>
+        </Layout>
     );
 }
 

@@ -1,10 +1,11 @@
 import React from "react";
+import Layout from "../../components/layout/Frontend/Layout";
 
 const ResetPasswordView = props => {
     return (
-        <div>
+        <Layout>
             <h2>ResetPasswordView</h2>
-        </div>
+        </Layout>
     );
 }
 

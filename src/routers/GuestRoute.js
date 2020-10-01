@@ -1,12 +1,14 @@
 import React from "react";
 import {Route, Redirect} from "react-router-dom";
+import {MAIN_PATH} from "./RouteType/GuestRouteType";
 
 const GuestRoute = props => {
+    console.log('GuestRoute', props)
 
-    const {isUser} = props
+    const {isAuthenticated} = props
 
     return (
-        !isUser ? <Route {...props} /> : <Redirect to="/"/>
+        !isAuthenticated ? <Route {...props} /> : <Redirect to={MAIN_PATH} />
     )
 }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import LoginContainer from "../../../containers/Auth/LoginContainer";
+import Auth from "../../../../config/Auth";
 
 const LoginView = props => {
     return (
@@ -9,7 +10,7 @@ const LoginView = props => {
                     <h1 className="mt-5">Login form with React Hook Form</h1>
                 </div>
             </div>
-            <LoginContainer provider={'admin'} {...props} />
+            <LoginContainer provider={Auth.ADMIN_PROVIDER} {...props} />
         </div>
     );
 }

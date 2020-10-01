@@ -1,11 +1,12 @@
 import React, {useState} from "react";
+import Layout from "../../components/layout/Frontend/Layout";
 
 
 const TopicView = props => {
     const [text, setText] = useState(12)
 
     return (
-        <div>
+        <Layout>
             <h3>
                 {props.match.params.topicId}
                 <input
@@ -13,7 +14,7 @@ const TopicView = props => {
                     value={text}
                 />
             </h3>
-        </div>
+        </Layout>
     )
 }
 

@@ -1,13 +1,12 @@
+import React from "react";
 import {connect} from "react-redux";
 import {logoutUser} from "../../../stores/redux/auth/actions";
-
-const LogoutView = props => {
+import { Redirect} from "react-router-dom";
+import {LOGIN_PATH} from "../../../routers/RouteType/GuestRouteType";
+export const LogoutView = props => {
     props.logoutUser('users')
-    props.history.push('/login')
 
-    return {
-
-    }
+    return <Redirect to={LOGIN_PATH}/>
 }
 
 const mapStateToProps = ({authUser}) => {

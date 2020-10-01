@@ -5,6 +5,7 @@ const getAuthInfo = (auth) => {
 const checkAuthenticated = (auth) => {
     try {
         const authInfo = getAuthInfo(auth)
+        console.log(auth, authInfo)
 
         return authInfo && !!authInfo.access_token
     } catch (e) {

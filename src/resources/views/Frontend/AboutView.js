@@ -1,10 +1,11 @@
 import React from "react";
+import Layout from "../../components/layout/Frontend/Layout";
 
 const AboutView = props => {
     return (
-        <div>
+        <Layout>
             <h1>About</h1>
-        </div>
+        </Layout>
     );
 }
 

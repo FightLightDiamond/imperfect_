@@ -1,11 +1,11 @@
 const USER_PROVIDER = 'users'
-const ADMIN_PROVIDER = 'admin'
+const ADMIN_PROVIDER = 'admins'
 
 const passpost = (provider = USER_PROVIDER) => {
   return {
     grant_type: 'password',
     client_id: 2,
-    client_secret: 'bBulLSUfPjUa6zdvC0yYymyAqpHhZCE8letJBBFu',
+    client_secret: 'sLqlShdHzQh8SDNMByOnUA1VZLg3lENshjK1eZmK',
     provider: provider
   }
 }

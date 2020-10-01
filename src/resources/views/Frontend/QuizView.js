@@ -3,6 +3,7 @@ import ReactMde from "react-mde";
 import * as Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import ReactMarkdown from 'react-markdown/with-html'
+import Layout from "../../components/layout/Frontend/Layout";
 
 const converter = new Showdown.Converter({
     tables: true,
@@ -16,7 +17,7 @@ const QuizView = props => {
     const [tab, setTab] = useState( "write" | "preview")
 
     return (
-        <div>
+        <Layout>
             <ReactMarkdown
                 source={lesson}
                 escapeHtml={false}
@@ -30,7 +31,7 @@ const QuizView = props => {
                     Promise.resolve(converter.makeHtml(markdown))
                 }
             />
-        </div>
+        </Layout>
     );
 }
 

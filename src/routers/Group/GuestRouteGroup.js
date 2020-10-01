@@ -18,10 +18,10 @@ const GuestRouteGroup = props => {
 
     return (
         <Switch>
-            <GuestRoute isUser={isUser} path={LOGIN_PATH} component={LoginView}/>
-            <GuestRoute isUser={isUser} path={FORGOT_PATH} component={ForgotPasswordView}/>
-            <GuestRoute isUser={isUser} path={REGISTER_PATH} component={RegisterView}/>
-            <GuestRoute isUser={isUser} path={REST_PATH} component={ResetPasswordView}/>
+            <GuestRoute isAuthenticated={isUser} path={LOGIN_PATH} component={LoginView}/>
+            <GuestRoute isAuthenticated={isUser} path={FORGOT_PATH} component={ForgotPasswordView}/>
+            <GuestRoute isAuthenticated={isUser} path={REGISTER_PATH} component={RegisterView}/>
+            <GuestRoute isAuthenticated={isUser} path={REST_PATH} component={ResetPasswordView}/>
         </Switch>
     );
 }

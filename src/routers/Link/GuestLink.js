@@ -2,10 +2,10 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 const GuestLink = props => {
-    const {to, name, isUser} = props
+    const {to, name, isAuthenticated} = props
 
     return (
-        !isUser ? <Link to={to} className='nav-link'>{name}</Link> : ''
+        !isAuthenticated ? <Link to={to} className='nav-link'>{name}</Link> : ''
     );
 }
 
